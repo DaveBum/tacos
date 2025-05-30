@@ -1,0 +1,264 @@
+/* tacosnganas.css — brand theme */
+@layer theme, utilities, dark, forced, print-theme;
+
+/* ——— Brand Tokens & Base Theme Styles ——— */
+@layer theme {
+  :root {
+    /* Brand Colors (can inherit from base.css or be re-declared/refined here) */
+    /* --tg-pink: #EC008C; (already in base.css) */
+
+    /* Theme Specific Variables */
+    --tg-hero-gradient-start: var(--tg-pink);
+    --tg-hero-gradient-end: var(--tg-teal);
+    --tg-hero-text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+    --tg-card-bg: var(--tg-surface);
+    --tg-card-shadow: var(--tg-shadow-md);
+    --tg-card-hover-shadow: var(--tg-shadow-lg);
+    --tg-card-radius: var(--tg-radius-lg);
+
+    --tg-text-on-pink: #FFFFFF;
+    --tg-text-on-green: #FFFFFF;
+    --tg-text-on-teal: #FFFFFF;
+    --tg-text-on-yellow: var(--tg-text); /* Yellow is light, needs dark text */
+
+    /* Specific component theming */
+    --tg-footer-bg: var(--tg-text); /* Dark footer */
+    --tg-footer-text: #E5E7EB; /* Light gray text for footer */
+    --tg-footer-link: var(--tg-yellow);
+    --tg-footer-link-hover: var(--tg-yellow-light);
+  }
+
+  /* Text Gradient Utility (can be part of theme or utilities) */
+  .txt-gradient {
+    background-image: linear-gradient(90deg, var(--tg-hero-gradient-start) 0%, var(--tg-hero-gradient-end) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Optional: Add a subtle shimmer animation */
+    /* animation: txt-gradient-shimmer 5s linear infinite; */
+  }
+
+  /* @keyframes txt-gradient-shimmer { ... } */
+
+  /* body { */
+    /* Theme-specific body overrides if any, e.g., a default background pattern */
+  /* } */
+
+  /* Themed Sections */
+  .section--themed-dark {
+    background-color: var(--tg-text); /* Example dark section */
+    color: var(--tg-text-on-dark);
+  }
+  .section--themed-dark h1, .section--themed-dark h2, .section--themed-dark h3 {
+    color: var(--tg-text-on-dark);
+  }
+  .section--themed-dark p { color: var(--tg-text-muted-dark-mode); } /* Use dark mode muted text */
+  .section--themed-dark a:not(.btn) {
+    color: var(--tg-pink-light);
+  }
+  .section--themed-dark a:not(.btn):hover {
+    color: var(--tg-yellow);
+  }
+
+  .section--brand-gradient {
+    background: linear-gradient(135deg, var(--tg-pink) 0%, var(--tg-teal) 100%);
+    color: var(--tg-text-on-brand);
+  }
+   .section--brand-gradient h1, .section--brand-gradient h2, .section--brand-gradient h3 {
+    color: var(--tg-text-on-brand);
+    text-shadow: var(--tg-hero-text-shadow);
+  }
+  .section--brand-gradient p { color: rgba(255,255,255,0.9); }
+
+}
+
+/* ——— Theme Utility Classes ——— */
+@layer utilities {
+
+  /* Confetti System - More refined and subtle */
+  .confetti-bg {
+    position: relative;
+    overflow: hidden; /* Contain confetti */
+  }
+  .confetti-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; /* Allow interaction with content below */
+    z-index: 0; /* Behind content */
+    opacity: 0.3; /* Subtle */
+  }
+
+  .confetti-bg--pink::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='5' cy='5' r='2' fill='%23EC008C'/%3E%3Crect x='15' y='10' width='4' height='4' fill='%23EC008C' transform='rotate(45 17 12)'/%3E%3Ccircle cx='25' cy='20' r='1.5' fill='%23FDD7EE'/%3E%3C/svg%3E");
+    background-size: 80px;
+  }
+
+  .confetti-bg--mix::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='10' r='3' fill='%23EC008C'/%3E%3Crect x='25' y='15' width='5' height='5' fill='%2300A3E0' transform='rotate(30 27.5 17.5)'/%3E%3Ccircle cx='15' cy='35' r='2.5' fill='%23F9C440'/%3E%3Crect x='40' y='30' width='4' height='4' fill='%2300A86B' transform='rotate(-20 42 32)'/%3E%3C/svg%3E");
+    background-size: 100px;
+  }
+
+  /* Optional animation for confetti */
+  @keyframes confettiFall {
+    0% { background-position-y: 0; }
+    100% { background-position-y: 200vh; } /* Adjust for desired speed/distance */
+  }
+
+  .confetti-animate::before {
+    animation: confettiFall 60s linear infinite; /* Slow, subtle fall */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .confetti-animate::before { animation: none; }
+    .txt-gradient { animation: none; } /* Stop text gradient shimmer if animated */
+  }
+
+  /* Button & Badge Theme Extensions */
+  .btn--fiesta {
+    background: linear-gradient(105deg, var(--tg-pink) 0%, var(--tg-yellow) 50%, var(--tg-teal) 100%);
+    color: var(--tg-text-on-brand); /* White usually works */
+    border: none;
+    box-shadow: var(--tg-shadow-md);
+  }
+  .btn--fiesta:hover {
+    background-size: 150% 150%; /* Slight zoom effect on gradient */
+    box-shadow: var(--tg-shadow-lg);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  /* Themed Badges (assuming base .badge style exists in base.css or elements layer) */
+  .badge {
+    display: inline-block;
+    padding: .3em .75em;
+    font-size: .8em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--tg-radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge--pink {
+    background-color: var(--tg-pink-light);
+    color: var(--tg-pink-dark);
+  }
+  .badge--green {
+    background-color: var(--tg-green-light);
+    color: var(--tg-green-dark);
+  }
+  .badge--teal {
+    background-color: var(--tg-teal-light);
+    color: var(--tg-teal-dark);
+  }
+  .badge--yellow {
+    background-color: var(--tg-yellow-light);
+    color: var(--tg-yellow-dark);
+  }
+
+  /* Section Specific Theming - Angled backgrounds */
+  .section--angle-top::before,
+  .section--angle-bottom::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: clamp(40px, 8vw, 100px); /* Responsive height */
+    background-color: inherit; /* Inherit section background */
+    z-index: 0; /* Behind content */
+  }
+
+  .section--angle-top::before {
+    top: 0;
+    transform: translateY(-99%) skewY(-2.5deg); /* Adjust angle */
+    transform-origin: top left;
+  }
+  .section--angle-bottom::after {
+    bottom: 0;
+    transform: translateY(99%) skewY(-2.5deg); /* Adjust angle */
+    transform-origin: bottom left;
+  }
+  .section--angle-top, .section--angle-bottom {
+    position: relative; /* Needed for pseudo-elements */
+    z-index: 1; /* Ensure content is above pseudo-elements */
+  }
+  /* Example usage: <section class="section--angle-top section--angle-bottom"> */
+
+}
+
+/* ——— Dark Mode Overrides ——— */
+@layer dark {
+  @media (prefers-color-scheme: dark) {
+    /* :root { */
+      /* Override base dark mode variables if theme requires different dark shades */
+      /* --tg-bg-dark: #0F172A; (example: slightly different dark blue) */
+    /* } */
+
+    /* Specific dark mode theme adjustments */
+    /* .section--themed-dark { */ /* This class might be redundant if using prefers-color-scheme for global dark mode */
+      /* background-color: var(--tg-surface-dark); */
+    /* } */
+
+    /* .txt-gradient { */ /* Ensure gradient is visible in dark mode */
+      /* May need adjustment if colors don't contrast well */
+    /* } */
+
+    .btn--fiesta {
+      /* Adjust fiesta button for dark mode if needed, e.g., different shadow */
+      box-shadow: 0 0 15px rgba(236,0,140,0.3), 0 0 15px rgba(0,163,224,0.3); /* Example glow */
+    }
+
+    .badge--pink { background-color: var(--tg-pink-dark); color: var(--tg-pink-light); }
+    .badge--green { background-color: var(--tg-green-dark); color: var(--tg-green-light); }
+    .badge--teal { background-color: var(--tg-teal-dark); color: var(--tg-teal-light); }
+    .badge--yellow { background-color: var(--tg-yellow-dark); color: var(--tg-yellow-light); }
+  }
+}
+
+/* ——— Forced Colors Mode (Windows High Contrast) ——— */
+@layer forced {
+  @media (forced-colors: active) {
+    /* Theme-specific high contrast overrides */
+    .btn--fiesta {
+      forced-color-adjust: none;
+      background: ButtonFace;
+      color: ButtonText;
+      border: 1px solid ButtonText;
+    }
+    .txt-gradient {
+      background-image: none;
+      color: LinkText;
+    }
+    /* Add more overrides as needed */
+  }
+}
+
+/* ——— Print Friendly Theme Adjustments ——— */
+@layer print-theme {
+  @media print {
+    .txt-gradient {
+      background-image: none !important;
+      color: #000 !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+    }
+    .btn--fiesta {
+      display: none !important; /* Or style very simply */
+    }
+    .confetti-bg::before {
+      display: none !important;
+    }
+    .section--brand-gradient {
+        background: none !important;
+        color: #000 !important;
+    }
+    .section--brand-gradient h1, .section--brand-gradient h2, .section--brand-gradient h3, .section--brand-gradient p {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+    /* Add other theme-specific print overrides */
+  }
+}

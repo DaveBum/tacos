@@ -1,0 +1,27 @@
+<!--
+  Generic Modal Dialog Component
+  Usage: Clone this node, populate #tgModalTitle, #tgModalDesc, and .tg-modal__footer.
+  Then call .showModal() on the dialog element.
+
+  Native <dialog> element is supported in Chrome 37+.
+  For older browsers, ensure dialog-polyfill.js (referenced in app.js) is loaded.
+-->
+<dialog id="tgModal" class="tg-modal" tabindex="-1" aria-labelledby="tgModalTitle" aria-describedby="tgModalDesc">
+  <form method="dialog" class="tg-modal__content">
+     <header class="tg-modal__header">
+        <h2 id="tgModalTitle" class="tg-modal__title"></h2>
+        <button type="button" class="tg-modal__close icon-btn" aria-label="Close dialog" value="cancel" formnovalidate>
+          <svg class="tg-modal__close-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+          </svg>
+          <span class="sr-only">Close</span>
+        </button>
+     </header>
+     <section id="tgModalDesc" class="tg-modal__body">
+        <!-- Dynamic content will be injected here by JavaScript -->
+     </section>
+     <footer class="tg-modal__footer">
+        <!-- Action buttons (e.g., OK, Cancel, Submit) will be injected here by JavaScript -->
+     </footer>
+  </form>
+</dialog>

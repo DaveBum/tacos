@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Locations - TacosNGanas</title>
+    <!-- Assuming base.css and tacosnganas.css are linked in the main layout or header -->
+    <!-- <link rel="stylesheet" href="../css/base.css"> -->
+    <!-- <link rel="stylesheet" href="../css/themes/tacosnganas.css"> -->
+    <link rel="stylesheet" href="locations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Ranchers&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Placeholder for global header -->
+    <!-- <?php include '../components/header.html'; ?> or similar server-side include -->
+    <header id="page-header-placeholder">
+        <!-- Content from /components/header.html would go here -->
+        <nav>Global Navigation Placeholder</nav>
+    </header>
+
+    <main id="locations-page">
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Find Us & Get Directions</h1>
+                <p class="hero-subtitle">Visit your nearest TacosNGanas today!</p>
+            </div>
+        </section>
+
+        <section class="map-and-listings-section">
+            <div id="map-container">
+                <!-- Google Map will be rendered here -->
+            </div>
+            <div id="locations-list-container">
+                <h2>Our Locations</h2>
+                <div id="locations-list" role="list">
+                    <!-- Location cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Placeholder for global footer -->
+    <!-- <?php include '../components/footer.html'; ?> or similar server-side include -->
+    <footer id="page-footer-placeholder">
+        <!-- Content from /components/footer.html would go here -->
+        <p>&copy; 2025 TacosNGanas. All rights reserved.</p>
+    </footer>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap&libraries=marker&v=beta" async defer></script>
+    <script src="locations.js"></script>
+</body>
+</html>

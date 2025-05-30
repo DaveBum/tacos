@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TacoNGanas</title>
+    <meta name="description" content="Securely complete your TacoNGanas order with DoorDash.">
+    <link rel="icon" href="../images/ui/web_logo_TACONGANAS.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ranchers&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../order/order.css">
+    <!-- Base and theme CSS should be imported within order.css -->
+
+    <!-- IMPORTANT: User needs to provide this importmap for .env variables -->
+    <!--
+    <script type="importmap">
+    {
+        "imports": {
+            "env": "./checkout-env.js" 
+        }
+    }
+    </script>
+    Create a checkout-env.js file in the /order/ directory with content like:
+    export const DD_CLIENT_ID = 'YOUR_DOORDASH_CLIENT_ID';
+    export const DD_STORE_ID = 'YOUR_DOORDASH_STORE_ID';
+    export const DD_PUBLIC_KEY = 'YOUR_DOORDASH_PUBLIC_KEY';
+    -->
+</head>
+<body class="checkout-page-container">
+    <div data-include="/components/header.html"></div>
+
+    <main id="checkout-main">
+        <section class="checkout-content" id="checkout-step-container">
+            <!-- Progress Indicator -->
+            <ol class="progress-indicator" aria-label="Checkout progress">
+                <li class="progress-step completed" id="progress-cart">
+                    <span class="icon" aria-hidden="true">✓</span> Cart
+                </li>
+                <li class="progress-step active" id="progress-delivery">
+                    <span class="icon" aria-hidden="true">●</span> Delivery Details
+                </li>
+                <li class="progress-step" id="progress-confirmation">
+                    <span class="icon" aria-hidden="true">○</span> Confirmation
+                </li>
+            </ol>
+
+            <!-- Step 2: Delivery Details & Payment -->
+            <div id="delivery-payment-step">
+                <form id="checkout-form" novalidate>
+                    <div class="page-grid">
+                        <div class="checkout-details-column">
+                            <section class="checkout-form-section" aria-labelledby="delivery-address-heading">
+                                <h3 id="delivery-address-heading">Delivery Address</h3>
+                                <div class="form-grid">
+                                    <div class="input-field">
+                                        <input type="text" id="street-address" name="streetAddress" placeholder=" " required autocomplete="street-address">
+                                        <label for="street-address">Street Address</label>
+                                        <div class="error-message" id="street-address-error" aria-live="polite"></div>
+                                    </div>
+                                    <div class="input-field two-cols">
+                                        <input type="text" id="address-line2" name="addressLine2" placeholder=" " autocomplete="address-line2">
+                                        <label for="address-line2">Apt, Suite, etc. (Optional)</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <input type="text" id="city" name="city" value="Memphis" placeholder=" " required autocomplete="address-level2">
+                                        <label for="city">City</label>
+                                        <div class="error-message" id="city-error" aria-live="polite"></div>
+                                    </div>
+                                    <div class="form-grid two-cols">
+                                        <div class="input-field">
+                                            <input type="text" id="state" name="state" value="TN" placeholder=" " required autocomplete="address-level1">
+                                            <label for="state">State</label>
+                                            <div class="error-message" id="state-error" aria-live="polite"></div>
+                                        </div>
+                                        <div class="input-field">
+                                            <input type="text" id="zip-code" name="zipCode" placeholder=" " required pattern="\d{5}(-\d{4})?" inputmode="numeric" autocomplete="postal-code">
+                                            <label for="zip-code">ZIP Code</label>
+                                            <div class="error-message" id="zip-code-error" aria-live="polite"></div>
+                                        </div>
+                                    </div>
+                                    <div class="input-field">
+                                        <input type="tel" id="phone" name="phone" placeholder=" " required autocomplete="tel">
+                                        <label for="phone">Phone Number</label>
+                                        <div class="error-message" id="phone-error" aria-live="polite"></div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="checkout-form-section" aria-labelledby="delivery-time-heading">
+                                <h3 id="delivery-time-heading">Delivery Time</h3>
+                                <div id="delivery-time-options">
+                                    <div class="input-field">
+                                        <input type="radio" id="time-asap" name="deliveryTimeOption" value="asap" checked>
+                                        <label for="time-asap">ASAP (approx. <span id="asap-eta">20-30</span> min)</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <input type="radio" id="time-schedule" name="deliveryTimeOption" value="schedule">
+                                        <label for="time-schedule">Schedule for later</label>
+                                    </div>
+                                    <div id="scheduled-time-selector" class="input-field" style="display: none;">
+                                        <label for="scheduled-time-dropdown" class="sr-only">Select a time slot</label>
+                                        <select id="scheduled-time-dropdown" name="scheduledTimeSlot">
+                                            <!-- Time slots from DoorDash API will be populated here -->
+                                            <option value="">Loading available times...</option>
+                                        </select>
+                                        <div class="error-message" id="scheduled-time-error" aria-live="polite"></div>
+                                    </div>
+                                </div>
+                            </section>
+
+                             <section class="checkout-form-section" aria-labelledby="order-notes-heading">
+                                <h3 id="order-notes-heading">Order Notes</h3>
+                                <div class="input-field">
+                                    <label for="order-notes" class="sr-only">Special instructions for your order</label>
+                                    <textarea id="order-notes" name="orderNotes" rows="3" placeholder="Leave at door, call on arrival, etc."></textarea>
+                                </div>
+                            </section>
+                        </div>
+
+                        <aside class="financial-summary-aside checkout-summary">
+                            <section class="checkout-form-section" aria-labelledby="payment-heading">
+                                <h3 id="payment-heading">Payment</h3>
+                                <div id="doordash-payment-container">
+                                    <!-- DoorDash Payment Widget will be mounted here -->
+                                    <div id="doordash-payment-iframe-placeholder" style="height:150px; border:1px dashed var(--tg-border); display:flex; align-items:center; justify-content:center; border-radius:var(--tg-radius);">Loading Payment Options...</div>
+                                </div>
+                                <div id="card-icons-container" style="margin-top: 0.5rem; text-align: right;">
+                                    <!-- Card icons like Visa, Mastercard will be shown here -->
+                                </div>
+                                <div id="last4-digits-display" style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--tg-text-muted);"></div>
+                                <div class="error-message" id="payment-error" aria-live="assertive"></div>
+                            </section>
+
+                            <section class="checkout-form-section" aria-labelledby="order-summary-heading">
+                                <h3 id="order-summary-heading">Order Summary</h3>
+                                <div id="checkout-order-summary-container">
+                                    <!-- Cart summary (subtotal, tax, tip, total) will be injected by cart.js -->
+                                    <p>Loading summary...</p>
+                                </div>
+                            </section>
+
+                            <button type="submit" id="place-order-btn" class="button button-secondary checkout-button" disabled>
+                                Place Order
+                            </button>
+                            <div id="place-order-error" class="error-message" aria-live="assertive" style="text-align:center; margin-top:0.5rem;"></div>
+                        </aside>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 3: Confirmation -->
+            <div id="confirmation-step" style="display: none;" class="confirmation-container">
+                <canvas id="confetti-canvas"></canvas>
+                <h1 id="confirmation-heading">¡Gracias!</h1>
+                <p>Your order has been placed successfully.</p>
+                <div class="order-details-summary">
+                    <p>Order Number: <strong id="confirmation-order-id"></strong></p>
+                    <p>Estimated Delivery Time: <strong id="confirmation-eta"></strong></p>
+                </div>
+                <a href="#" id="track-order-link" class="button button-primary" target="_blank" rel="noopener noreferrer">Track Your Order</a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;"><button type="button" id="close-confirmation-btn" class="button-link">Close this window</button></p>
+            </div>
+
+        </section>
+    </main>
+
+    <div data-include="/components/footer.html"></div>
+
+    <!-- Modal for Out-of-Stock Items -->
+    <dialog id="out-of-stock-modal" aria-labelledby="out-of-stock-title" aria-describedby="out-of-stock-desc">
+        <h2 id="out-of-stock-title">Items Unavailable</h2>
+        <p id="out-of-stock-desc">Some items in your cart are no longer available or have insufficient stock:</p>
+        <ul id="unavailable-items-list">
+            <!-- List of unavailable items -->
+        </ul>
+        <p>Please update your cart and try again.</p>
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+            <button type="button" class="button button-primary" id="update-cart-from-modal-btn">Update Cart & Retry</button>
+            <button type="button" class="button button-tertiary" id="close-out-of-stock-modal-btn">Cancel Order</button>
+        </div>
+    </dialog>
+
+    <!-- Toast Notification Area -->
+    <div id="toast-container" aria-live="assertive" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 2000;">
+        <!-- Toasts will be appended here -->
+    </div>
+
+    <script src="https://js.doordash.com/v3/sdk.js" async defer></script>
+    <script type="module" src="../order/cart.js"></script>
+    <script type="module" src="../order/checkout.js"></script>
+    <!-- <script type="module" src="../js/app.js"></script> app.js might contain the includeHTML logic -->
+
+</body>
+</html>

@@ -1,0 +1,1000 @@
+@import url('../css/base.css');
+@import url('../css/themes/tacosnganas.css');
+
+@layer catering {
+    :where(*) {
+        box-sizing: border-box;
+    }
+
+    img,
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    .skip-link {
+        position: absolute;
+        top: -60px; /* Increased to ensure it's off-screen */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--tg-pink);
+        color: var(--tg-bg);
+        padding: 0.75rem 1.5rem;
+        border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+        z-index: 99999;
+        transition: top 0.3s ease-out;
+        font-weight: 600;
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+    /* Hero Section */
+    #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: clamp(2rem, 6vw, 5rem);
+        background-image: linear-gradient(rgba(0, 163, 224, 0.32), rgba(0, 163, 224, 0.32)), url('/images/hero/picture_OfFood1.jpeg');
+        background-size: cover;
+        background-position: center;
+        color: var(--tg-bg);
+        position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%);
+    }
+
+    #hero .hero-inner {
+        max-width: 700px;
+    }
+
+    #hero h1 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 6vw + 1rem, 4.5rem);
+        color: var(--tg-pink);
+        margin-bottom: 0.5em;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        font-weight: 700;
+    }
+
+    #hero p {
+        font-family: var(--font-body);
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        margin-bottom: 1.5em;
+        color: var(--tg-bg);
+    }
+
+    #hero .cta-scroll {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+        background-color: var(--tg-pink);
+        color: var(--tg-bg);
+        border: none;
+        border-radius: var(--corner-radius);
+        cursor: pointer;
+        transition: transform 160ms ease-out, background-color 160ms ease-out;
+    }
+
+    #hero .cta-scroll:hover,
+    #hero .cta-scroll:focus {
+        transform: scale(1.03);
+        background-color: #d4007a; /* Darker pink */
+    }
+
+    /* Main Content & Steps */
+    #main {
+        padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .step {
+        margin-bottom: clamp(3rem, 8vw, 6rem);
+    }
+    
+    .step:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .step-title {
+        font-family: var(--font-heading);
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        color: var(--tg-text);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+    }
+
+    .step-title .step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: var(--tg-yellow);
+        color: var(--tg-text);
+        border-radius: 50%;
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+    }
+
+    /* Form Grid & Controls */
+    #cateringForm fieldset {
+        border: none;
+        padding: 0;
+        margin: 0 0 2rem 0;
+    }
+    #cateringForm legend {
+        font-family: var(--font-heading);
+        font-size: 1.5rem; /* Ranchers 400 */
+        color: var(--tg-text);
+        margin-bottom: 1rem;
+        padding: 0;
+        font-weight: 400;
+    }
+
+    #cateringForm .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .form-control {
+        position: relative;
+        margin-bottom: 1rem; /* Space for error messages */
+    }
+
+    .form-control input[type="text"],
+    .form-control input[type="email"],
+    .form-control input[type="tel"],
+    .form-control input[type="time"],
+    .form-control input[type="number"], /* For guestCount */
+    .form-control input.flatpickr-input /* flatpickr creates text input */
+    {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--tg-border, #ccc); /* Lighter border initially */
+        border-radius: var(--corner-radius);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        background-color: var(--tg-surface);
+        color: var(--tg-text);
+        transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+    }
+    /* Floating label specific padding */
+    .form-control input[type="text"]:not(.flatpickr-input):not(#guestCount),
+    .form-control input[type="email"],
+    .form-control input[type="tel"] {
+         padding-top: 1.25rem; /* Make space for floating label */
+    }
+
+
+    .form-control label {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        color: var(--tg-text-muted, #777);
+        pointer-events: none;
+        transition: transform 160ms ease-out, font-size 160ms ease-out, color 160ms ease-out, top 160ms ease-out, background-color 160ms ease-out, padding 160ms ease-out;
+    }
+    /* Floating label positioning */
+    .form-control input[type="text"]:not(.flatpickr-input):not(#guestCount) + label,
+    .form-control input[type="email"] + label,
+    .form-control input[type="tel"] + label {
+        position: absolute;
+        left: 1rem;
+        top: 0.85rem; /* Adjusted for padding */
+        background-color: transparent; /* Will be var(--tg-surface) on float */
+        padding: 0;
+    }
+    
+    .form-control input:not(:placeholder-shown) + label,
+    .form-control input:focus + label {
+        transform: translateY(-1.6em) scale(0.85); /* Adjusted for better positioning */
+        color: var(--tg-teal);
+        font-weight: 600;
+        background-color: var(--tg-surface); /* Match input background for border overlap */
+        padding: 0 0.25rem; /* Create a small gap in the border */
+        left: 0.75rem; /* Align with input padding */
+    }
+    /* Specific label adjustments for date/time/number where placeholder is not used for floating effect or label is static */
+    .form-control input[type="time"] + label,
+    .form-control input.flatpickr-input + label,
+    .form-control #guestCount + label { /* Static label for guest count */
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--tg-text);
+    }
+    .form-control input[type="time"]:not(:placeholder-shown) + label, /* If browser shows placeholder */
+    .form-control input[type="time"]:focus + label,
+    .form-control input.flatpickr-input:not(:placeholder-shown) + label,
+    .form-control input.flatpickr-input:focus + label {
+        transform: translateY(-1.6em) scale(0.85);
+        color: var(--tg-teal);
+        font-weight: 600;
+        background-color: var(--tg-surface);
+        padding: 0 0.25rem;
+        left: 0.75rem;
+    }
+
+
+    .form-control input:focus, .form-control input.flatpickr-input:focus {
+        outline: none;
+        border-color: var(--tg-teal);
+        box-shadow: 0 0 0 2px var(--tg-teal);
+    }
+
+    .form-control input:invalid,
+    .form-control input.error {
+        border-color: var(--tg-pink) !important; /* Ensure override */
+        box-shadow: 0 0 0 2px var(--tg-pink) !important; /* Ensure override */
+    }
+    .form-control input:invalid + label,
+    .form-control input.error + label {
+        color: var(--tg-pink) !important; /* Ensure override */
+    }
+    /* Ensure floating label also gets error color if it was floated */
+    .form-control input:not(:placeholder-shown):invalid + label,
+    .form-control input:not(:placeholder-shown).error + label,
+    .form-control input:focus:invalid + label,
+    .form-control input:focus.error + label {
+        color: var(--tg-pink) !important;
+    }
+
+
+    .form-control .error-message {
+        font-size: 0.875rem;
+        color: var(--tg-pink);
+        padding-top: 0.25rem;
+        min-height: 1.25em; /* Reserve space */
+        font-family: var(--font-body);
+    }
+
+    .form-control abbr[title="Required"] {
+        text-decoration: none;
+        color: var(--tg-pink);
+        margin-left: 0.25em;
+    }
+    .form-control.honeypot {
+        display: none; /* Visually hide, but still in DOM */
+    }
+
+    /* Quantity Spinner */
+    .quantity-spinner {
+        display: inline-grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid var(--tg-border, #ccc);
+        border-radius: var(--corner-radius);
+        padding: 0.25rem;
+        background-color: var(--tg-surface);
+        max-width: 150px; /* Prevent excessive width */
+    }
+    .quantity-spinner input[type="number"] {
+        border: none;
+        text-align: center;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-variant-numeric: tabular-nums;
+        width: 3em; /* Adjusted for better fit */
+        padding: 0.5rem 0;
+        background: transparent;
+        color: var(--tg-text);
+        -moz-appearance: textfield; /* Firefox */
+    }
+    .quantity-spinner input[type="number"]::-webkit-outer-spin-button,
+    .quantity-spinner input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .quantity-spinner input[type="number"]:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    .spinner-btn {
+        background-color: transparent;
+        border: none;
+        color: var(--tg-pink);
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        cursor: pointer;
+        border-radius: calc(var(--corner-radius) - 4px); /* Slightly smaller radius */
+        transition: background-color 160ms ease-out, color 160ms ease-out;
+        line-height: 1; /* Ensure vertical centering */
+    }
+    .spinner-btn:hover,
+    .spinner-btn:focus {
+        background-color: var(--tg-pink-light, #fde7f4);
+        color: var(--tg-pink);
+        outline: none;
+    }
+    .spinner-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: transparent;
+    }
+
+    /* Phone input placeholder */
+    input[type="tel"]::placeholder {
+        color: var(--tg-text-muted, #aaa); /* Lighter grey for placeholder */
+        opacity: 1; /* Ensure it's visible */
+    }
+    .h-captcha {
+        margin-top: 1.5rem;
+    }
+
+
+    /* Filter Pills */
+    .filter-bar {
+        display: flex;
+        flex-wrap: nowrap; /* Ensure single line for scrolling */
+        overflow-x: auto;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem; /* For scrollbar visibility and aesthetics */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+    .filter-bar::-webkit-scrollbar {
+        height: 8px;
+    }
+    .filter-bar::-webkit-scrollbar-track {
+        background: var(--tg-surface);
+        border-radius: 4px;
+    }
+    .filter-bar::-webkit-scrollbar-thumb {
+        background: var(--tg-border, #ccc);
+        border-radius: 4px;
+    }
+    .filter-bar::-webkit-scrollbar-thumb:hover {
+        background: var(--tg-text-muted, #999);
+    }
+
+
+    .filter-bar .pill {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--tg-pink);
+        border-radius: var(--corner-radius);
+        background-color: transparent;
+        color: var(--tg-pink);
+        cursor: pointer;
+        transition: background-color 160ms ease-out, color 160ms ease-out, transform 160ms ease-out;
+        white-space: nowrap;
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+
+    .filter-bar .pill:hover,
+    .filter-bar .pill:focus {
+        background-color: var(--tg-pink-light, #fde7f4);
+        outline: none;
+        transform: scale(1.03);
+    }
+
+    .filter-bar .pill[aria-checked="true"], /* Use aria-checked for radio role */
+    .filter-bar .pill.selected { /* Fallback class if needed */
+        background-color: var(--tg-pink);
+        color: var(--tg-bg);
+    }
+
+    /* Menu Table */
+    .menu-table-wrapper {
+        overflow-x: auto;
+        border: 1px solid var(--tg-border, #ddd); /* Subtle border */
+        border-radius: var(--corner-radius);
+        margin-bottom: var(--section-spacing);
+    }
+    #menuTable {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--font-body);
+    }
+
+    #menuTable th,
+    #menuTable td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--tg-border, #ddd);
+        vertical-align: middle;
+    }
+    #menuTable tr:last-child td {
+        border-bottom: none;
+    }
+
+    #menuTable th {
+        background-color: var(--tg-surface);
+        font-weight: 600;
+        color: var(--tg-text);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        position: sticky; /* Sticky header for table scroll */
+        top: 0;
+        z-index: 10;
+    }
+
+    #menuTable tbody tr:nth-child(even) {
+        background-color: var(--tg-surface);
+    }
+
+    #menuTable tbody tr:hover {
+        box-shadow: 0 0 0 2px var(--tg-yellow) inset; /* Inset shadow for row highlight */
+        background-color: var(--tg-yellow-light, #fffbeb); /* Light yellow for hover */
+    }
+
+    .menu-item-row .item-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .item-thumbnail {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: calc(var(--corner-radius) - 4px);
+        background-color: var(--tg-surface-dark, #eee); /* Placeholder bg */
+        flex-shrink: 0;
+    }
+    .item-name-en {
+        font-weight: 600;
+        color: var(--tg-text);
+        margin: 0 0 0.25rem 0;
+        font-size: 1rem;
+        display: block;
+    }
+    .item-name-es {
+        font-style: italic;
+        font-size: 0.875rem;
+        color: var(--tg-text-muted, #777);
+        margin: 0;
+        display: block;
+    }
+    .item-price {
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        color: var(--tg-text);
+    }
+    .item-calories .value {
+        font-variant-numeric: tabular-nums;
+    }
+    .item-quantity { /* Input within quantity spinner in table */
+        border: 1px solid var(--tg-border, #ccc);
+        border-radius: calc(var(--corner-radius) - 6px);
+        padding: 0.4rem;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-variant-numeric: tabular-nums;
+        background: var(--tg-bg);
+        color: var(--tg-text);
+        width: 3em;
+        text-align: center;
+        -moz-appearance: textfield;
+    }
+    .item-quantity::-webkit-outer-spin-button,
+    .item-quantity::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .item-quantity:focus {
+        outline: none;
+        border-color: var(--tg-teal);
+        box-shadow: 0 0 0 2px var(--tg-teal);
+    }
+
+    .toggle-calories {
+        background: none;
+        border: none;
+        color: var(--tg-teal);
+        cursor: pointer;
+        padding: 0.25rem;
+        font-size: 0.875rem;
+        text-decoration: underline;
+        font-family: var(--font-body);
+    }
+    .toggle-calories:hover, .toggle-calories:focus {
+        color: var(--tg-green);
+        text-decoration: none;
+        outline: none;
+    }
+    .calories-info {
+        font-size: 0.875rem;
+        color: var(--tg-text-muted, #777);
+        display: block; 
+        margin-top: 0.25rem;
+        font-family: var(--font-body);
+    }
+    .text-button { /* For retry and undo buttons */
+        background: none;
+        border: none;
+        color: var(--tg-teal);
+        cursor: pointer;
+        text-decoration: underline;
+        font-family: var(--font-body);
+        font-size: inherit;
+        padding: 0;
+    }
+    .text-button:hover, .text-button:focus {
+        color: var(--tg-green);
+        text-decoration: none;
+    }
+    .offline-message {
+        text-align: center;
+        padding: 2rem 1rem !important; /* Important to override td padding */
+        font-family: var(--font-body);
+        color: var(--tg-text-muted);
+    }
+    .offline-message .text-button {
+        margin-left: 0.25rem;
+    }
+
+
+    /* Summary Pane */
+    #summaryPane {
+        background-color: var(--tg-surface);
+        padding: 1.5rem;
+        border-radius: var(--corner-radius);
+        box-shadow: 0 4px 12px var(--tg-shadow);
+        color: var(--tg-text);
+        transition: transform 300ms ease-out, opacity 300ms ease-out;
+        font-family: var(--font-body);
+    }
+
+    #summaryPane h2 {
+        font-family: var(--font-heading);
+        font-size: 1.75rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: var(--tg-pink);
+        font-weight: 700;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+        font-size: 0.9375rem; /* 15px */
+    }
+    .summary-item.total {
+        font-weight: 700;
+        font-size: 1.125rem; /* 18px */
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px dashed var(--tg-border, #ccc);
+    }
+    .summary-value {
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+    }
+
+    #summaryPane hr {
+        border: none;
+        border-top: 1px dashed var(--tg-border, #ccc);
+        margin: 1rem 0;
+    }
+
+    .summary-warning {
+        background-color: var(--tg-yellow-light, #fffbeb);
+        color: var(--tg-text);
+        padding: 0.75rem;
+        border-radius: calc(var(--corner-radius) - 4px);
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        border: 1px solid var(--tg-yellow);
+        font-family: var(--font-body);
+    }
+
+    #summaryPane .cta-primary {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        background-color: var(--tg-pink);
+        color: var(--tg-bg);
+        border: none;
+        border-radius: var(--corner-radius);
+        cursor: pointer;
+        transition: transform 160ms ease-out, background-color 160ms ease-out;
+        font-family: var(--font-body);
+    }
+    #summaryPane .cta-primary:hover,
+    #summaryPane .cta-primary:focus {
+        transform: scale(1.03);
+        background-color: #d4007a; /* Darker pink */
+        outline: none;
+    }
+    #summaryPane .cta-primary:disabled {
+        background-color: var(--tg-text-muted, #aaa);
+        cursor: not-allowed;
+        transform: none;
+        opacity: 0.7;
+    }
+
+    .summary-toggle { /* Hidden by default, shown on mobile */
+        display: none;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: var(--tg-pink);
+        color: var(--tg-bg);
+        border: none;
+        border-radius: var(--corner-radius) var(--corner-radius) 0 0; /* Rounded top corners for drawer */
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: left;
+        position: relative; /* For arrow positioning */
+        align-items: center; /* For flex display */
+    }
+    .summary-toggle .arrow {
+        border: solid var(--tg-bg);
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg); /* Points down */
+        transition: transform 0.3s ease-out;
+        margin-right: 0.5rem;
+    }
+    .summary-toggle[aria-expanded="true"] .arrow {
+        transform: rotate(-135deg); /* Points up */
+    }
+
+    /* Toast Notifications (Container: #toastStack) */
+    #toastStack {
+        position: fixed;
+        bottom: 1rem; /* Adjust if overlapping with other fixed elements */
+        right: 1rem;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        max-width: 320px; /* Max width for toasts */
+        width: calc(100% - 2rem); /* Responsive width */
+    }
+
+    .toast {
+        padding: 1rem 1.5rem;
+        border-radius: var(--corner-radius);
+        color: var(--tg-bg);
+        font-family: var(--font-body);
+        font-size: 0.9375rem;
+        box-shadow: 0 2px 8px var(--tg-shadow);
+        animation: slideInToast 300ms ease-out forwards, fadeOutToast 300ms ease-out 4.7s forwards;
+        opacity: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .toast button { /* For close button if added */
+        background: none;
+        border: none;
+        color: inherit;
+        opacity: 0.7;
+        cursor: pointer;
+        font-size: 1.25rem;
+        padding: 0 0.5rem;
+    }
+    .toast button:hover {
+        opacity: 1;
+    }
+
+    .toast--success {
+        background-color: var(--tg-green);
+    }
+    .toast--error {
+        background-color: var(--tg-pink);
+    }
+    .toast--info {
+        background-color: var(--tg-teal);
+    }
+
+    @keyframes slideInToast {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes fadeOutToast {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
+
+    /* Undo Banner */
+    .undo-banner {
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--tg-text);
+        color: var(--tg-bg);
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--corner-radius);
+        box-shadow: 0 3px 10px var(--tg-shadow);
+        z-index: 9999; /* Below toasts but above content */
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: var(--font-body);
+    }
+    .undo-banner .text-button {
+        color: var(--tg-yellow); /* Distinct color for undo action */
+        font-weight: 600;
+    }
+    .undo-banner .text-button:hover, .undo-banner .text-button:focus {
+        color: var(--tg-bg);
+        background-color: var(--tg-yellow);
+        text-decoration: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: calc(var(--corner-radius) - 8px);
+    }
+
+    /* Success Message */
+    .success-message {
+        text-align: center;
+        padding: clamp(2rem, 8vw, 4rem) 1rem;
+        animation: fadeInSuccess 0.5s ease-out forwards;
+        position: relative; /* For confetti canvas */
+    }
+    .success-message .checkmark {
+        font-size: 4rem;
+        color: var(--tg-green);
+        line-height: 1;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    .success-message h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2rem, 5vw, 3rem);
+        color: var(--tg-green);
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+    .success-message p {
+        font-size: 1.125rem;
+        color: var(--tg-text);
+        margin-bottom: 1rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: var(--font-body);
+    }
+    .success-message .cta-secondary {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+        background-color: transparent;
+        color: var(--tg-pink);
+        border: 2px solid var(--tg-pink);
+        border-radius: var(--corner-radius);
+        cursor: pointer;
+        transition: transform 160ms ease-out, background-color 160ms ease-out, color 160ms ease-out;
+        margin-top: 1rem;
+    }
+    .success-message .cta-secondary:hover,
+    .success-message .cta-secondary:focus {
+        transform: scale(1.03);
+        background-color: var(--tg-pink);
+        color: var(--tg-bg);
+        outline: none;
+    }
+    #confettiCanvas {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: -1; /* Behind content */
+    }
+
+    @keyframes fadeInSuccess {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive Layout */
+    @media (max-width: 767px) { /* Mobile */
+        #main {
+            padding: clamp(1rem, 4vw, 2rem) clamp(0.5rem, 2vw, 1rem);
+        }
+        .step {
+            padding: 0; /* No extra padding for steps on mobile */
+        }
+        #menuTable th,
+        #menuTable td {
+            padding: 0.5rem;
+        }
+        .item-thumbnail {
+            width: 40px;
+            height: 40px;
+        }
+        .item-name-en { font-size: 0.9rem; }
+        .item-name-es { font-size: 0.8rem; }
+
+        /* Responsive table: stack cells */
+        #menuTable thead {
+            display: none; /* Hide table headers */
+        }
+        #menuTable tbody tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid var(--tg-border, #ddd);
+            border-radius: var(--corner-radius);
+            padding: 0.5rem;
+            background-color: var(--tg-bg); /* Ensure background for stacked rows */
+        }
+        #menuTable tbody tr:nth-child(even) { /* Reset zebra striping for stacked */
+            background-color: var(--tg-bg);
+        }
+        #menuTable tbody td {
+            display: block;
+            text-align: right; /* Align content to the right */
+            border-bottom: none; /* Remove bottom border for stacked cells */
+            padding-left: 50%; /* Make space for the label */
+            position: relative;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+        #menuTable tbody td:last-child {
+            padding-bottom: 0.5rem; /* More space for last item */
+        }
+        #menuTable tbody td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0.5rem;
+            width: calc(50% - 1rem); /* Adjust width */
+            padding-right: 0.5rem;
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+            color: var(--tg-text);
+            font-size: 0.875rem;
+        }
+        .calories-col { display: block !important; } /* Ensure calories always visible or togglable */
+        .toggle-calories { text-align: right; width: 100%; }
+        .calories-info { text-align: right; width: 100%; }
+
+
+        #summaryPane { /* Becomes bottom drawer */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            border-radius: var(--corner-radius) var(--corner-radius) 0 0;
+            transform: translateY(100%); /* Initially hidden */
+            z-index: 9990; /* Above content, below modals/toasts */
+            box-shadow: 0 -4px 12px var(--tg-shadow);
+            max-height: 80vh; /* Prevent full screen coverage */
+            overflow-y: auto;
+            background-color: var(--tg-surface); /* Ensure background */
+        }
+        #summaryPane.open {
+            transform: translateY(0);
+        }
+        #summaryContent {
+            padding: 1rem;
+            padding-top: 0; /* Toggle button has padding */
+        }
+        .summary-toggle {
+            display: flex; /* Show toggle on mobile */
+        }
+        #summaryPane:not(.open) #summaryContent {
+            display: none;
+        }
+        body.summary-open {
+            overflow: hidden; /* Prevent body scroll when drawer is open */
+        }
+        body.summary-open::before { /* Backdrop */
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 9980; /* Below summary pane */
+            animation: fadeInBackdrop 0.3s ease-out forwards;
+        }
+        @keyframes fadeInBackdrop {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #toastStack {
+            bottom: calc(1rem + env(safe-area-inset-bottom)); /* Adjust for summary drawer if open, or notch */
+            right: 1rem;
+            left: 1rem;
+            width: auto;
+            max-width: none;
+        }
+    }
+
+    @media (min-width: 768px) { /* Tablet */
+        #main {
+            display: grid;
+            grid-template-columns: 1fr 320px; /* Main content and sidebar */
+            gap: clamp(1.5rem, 4vw, 3rem);
+            align-items: start; /* Align items to the start of the grid area */
+        }
+        #eventDetails,
+        #menuBuilder {
+            grid-column: 1 / 2;
+        }
+        #summaryPane {
+            grid-column: 2 / 3;
+            position: sticky;
+            top: calc(var(--nav-height, 60px) + 1rem); /* Adjust based on actual nav height */
+            max-height: calc(100vh - var(--nav-height, 60px) - 2rem); /* Max height for scroll */
+            overflow-y: auto;
+        }
+        .calories-col { 
+            /* display: table-cell; */ /* Default, can be toggled by JS if needed */
+        }
+    }
+
+    @media (min-width: 1280px) { /* Desktop */
+        #main {
+            grid-template-columns: 1fr 1fr 320px; /* Two columns for steps, one for sidebar */
+        }
+        #eventDetails {
+            grid-column: 1 / 2;
+        }
+        #menuBuilder {
+            grid-column: 2 / 3;
+        }
+        #summaryPane {
+            grid-column: 3 / 4;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+            animation: none !important; /* Ensure all animations are off */
+            transition: none !important; /* Ensure all transitions are off */
+        }
+        #hero .cta-scroll:hover,
+        #hero .cta-scroll:focus,
+        #summaryPane .cta-primary:hover,
+        #summaryPane .cta-primary:focus,
+        .success-message .cta-secondary:hover,
+        .success-message .cta-secondary:focus,
+        .filter-bar .pill:hover,
+        .filter-bar .pill:focus {
+            transform: none;
+        }
+    }
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catering - TacoNGanas</title>
+    <meta name="description" content="Book TacoNGanas for your next event! Enjoy our delicious tacos, quesadillas, burritos, and more, freshly prepared for your guests.">
+    <meta name="theme-color" content="#EC008C">
+    <meta name="csrf-token" content=""> <!-- Placeholder for CSRF token, to be populated by backend -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/themes/tacosnganas.css">
+    <link rel="stylesheet" href="catering.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <meta property="og:title" content="Book Catering - TacoNGanas">
+    <meta property="og:description" content="Taco bars, birria ramen, quesadillas – we’ve got every craving covered.">
+    <meta property="og:image" content="/images/hero/picture_OfFood1.jpeg">
+    <meta property="og:url" content="https://www.taconganas.com/catering/catering.html">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Book Catering - TacoNGanas">
+    <meta name="twitter:description" content="Taco bars, birria ramen, quesadillas – we’ve got every craving covered.">
+    <meta name="twitter:image" content="/images/hero/picture_OfFood1.jpeg">
+
+    <script type="module" src="catering.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="site-header" data-include="/components/header.html"></div>
+
+    <section id="hero" role="banner">
+        <div class="hero-inner">
+            <h1 data-translate="hero.title">Bring the Fiesta to You</h1>
+            <p data-translate="hero.subtitle">Taco bars, birria ramen, quesadillas – we’ve got every craving covered.</p>
+            <button class="cta-scroll" data-scroll="#eventDetails" data-translate="hero.button">Start Booking ↓</button>
+        </div>
+    </section>
+
+    <main id="main">
+        <section id="eventDetails" class="step">
+            <h2 class="step-title"><span class="step-num">1</span> <span data-translate="step1.title">Event Details</span></h2>
+            <form id="cateringForm" novalidate autocomplete="off" action="/api/catering-request" method="POST">
+                <fieldset>
+                    <legend data-translate="step1.dateTimeLegend">Date & Time</legend>
+                    <div class="grid">
+                        <div class="form-control">
+                            <input type="text" id="eventDate" name="eventDate" placeholder=" " required aria-required="true">
+                            <label for="eventDate" data-translate="form.eventDate">Event Date <abbr title="Required">*</abbr></label>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        <div class="form-control">
+                            <input type="time" id="startTime" name="startTime" placeholder=" " required aria-required="true">
+                            <label for="startTime" data-translate="form.startTime">Start Time <abbr title="Required">*</abbr></label>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        <div class="form-control">
+                            <input type="time" id="endTime" name="endTime" placeholder=" " required aria-required="true">
+                            <label for="endTime" data-translate="form.endTime">End Time <abbr title="Required">*</abbr></label>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend data-translate="step1.guestContactLegend">Guests & Contact</legend>
+                    <div class="grid">
+                        <div class="form-control">
+                            <label for="guestCount" data-translate="form.guestCount">Number of Guests <abbr title="Required">*</abbr></label>
+                            <div class="quantity-spinner">
+                                <button type="button" class="spinner-btn minus" aria-label="Decrease guest count" data-field="guestCount">−</button>
+                                <input type="number" id="guestCount" name="guestCount" value="10" min="10" max="500" step="1" required aria-required="true" inputmode="numeric">
+                                <button type="button" class="spinner-btn plus" aria-label="Increase guest count" data-field="guestCount">+</button>
+                            </div>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        <div class="form-control">
+                            <input type="text" id="contactName" name="contactName" placeholder=" " required aria-required="true" autocomplete="name">
+                            <label for="contactName" data-translate="form.contactName">Contact Name <abbr title="Required">*</abbr></label>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        <div class="form-control">
+                            <input type="email" id="contactEmail" name="contactEmail" placeholder=" " required aria-required="true" inputmode="email" autocomplete="email">
+                            <label for="contactEmail" data-translate="form.contactEmail">Email <abbr title="Required">*</abbr></label>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        <div class="form-control">
+                            <input type="tel" id="contactPhone" name="contactPhone" placeholder="(901) 000-0000" required aria-required="true" inputmode="tel" autocomplete="tel">
+                            <label for="contactPhone" data-translate="form.contactPhone">Phone <abbr title="Required">*</abbr></label>
+                            <div class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        <div class="form-control honeypot" aria-hidden="true">
+                            <label for="organization">Organization</label>
+                            <input type="text" id="organization" name="organization" tabindex="-1" autocomplete="off">
+                        </div>
+                    </div>
+                </fieldset>
+                 <div id="hcaptcha-container" class="h-captcha"></div>
+            </form>
+        </section>
+
+        <section id="menuBuilder" class="step">
+            <h2 class="step-title"><span class="step-num">2</span> <span data-translate="step2.title">Build Your Menu</span></h2>
+            <div class="filter-bar" role="toolbar" aria-label="Filter menu items">
+                <!-- Filter pills injected by JS -->
+            </div>
+            <div class="menu-table-wrapper">
+                <table id="menuTable" aria-label="Menu items">
+                    <caption class="sr-only" data-translate="menuTable.caption">Menu items available for catering</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" data-translate="menuTable.item">Item</th>
+                            <th scope="col" data-translate="menuTable.price">Price</th>
+                            <th scope="col" data-translate="menuTable.quantity">Quantity</th>
+                            <th scope="col" data-translate="menuTable.calories" class="calories-col">Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Menu rows injected by JS -->
+                         <tr><td colspan="4" class="offline-message" style="display:none;"><span data-translate="offline.message">Could not load menu. Please check your connection and </span><button id="retryMenuLoad" class="text-button" data-translate="offline.retry">retry</button>.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <aside id="summaryPane" aria-labelledby="summaryHeading" role="complementary">
+        <button id="summaryToggle" class="summary-toggle" aria-expanded="false" aria-controls="summaryContent">
+            <span class="arrow"></span>
+            <span class="toggle-text-open" data-translate="summary.toggleOpen">Show Quote Summary</span>
+            <span class="toggle-text-close" data-translate="summary.toggleClose" style="display:none;">Hide Quote Summary</span>
+        </button>
+        <div id="summaryContent">
+            <h2 id="summaryHeading" data-translate="summary.title">Your Quote</h2>
+            <div class="summary-item">
+                <span data-translate="summary.subtotal">Subtotal:</span>
+                <span id="summarySubtotal" class="summary-value">$0.00</span>
+            </div>
+            <div class="summary-item">
+                <span data-translate="summary.serviceFee">Service Fee (18%):</span>
+                <span id="summaryServiceFee" class="summary-value">$0.00</span>
+            </div>
+            <div class="summary-item">
+                <span data-translate="summary.tax">Est. Tax (9.75%):</span>
+                <span id="summaryTax" class="summary-value">$0.00</span>
+            </div>
+            <hr>
+            <div class="summary-item total">
+                <strong data-translate="summary.grandTotal">Grand Total:</strong>
+                <strong id="summaryGrandTotal" class="summary-value">$0.00</strong>
+            </div>
+            <div id="minOrderWarning" class="summary-warning" role="status" style="display:none;" data-translate="summary.minOrderWarning">You’re under the minimum $250 order.</div>
+            <button id="requestQuoteBtn" type="submit" form="cateringForm" class="cta-primary" disabled data-translate="summary.requestButton">Request Quote →</button>
+        </div>
+    </aside>
+
+    <div id="toastStack" role="region" aria-live="polite" aria-atomic="true">
+        <!-- Toasts injected by JS -->
+    </div>
+    <div id="undoBanner" class="undo-banner" role="alert" aria-live="assertive" style="display:none;">
+        <span id="undoMessage"></span>
+        <button id="undoBtn" class="text-button" data-translate="undo.button">Undo</button>
+    </div>
+    
+    <div id="liveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <div id="site-footer" data-include="/components/footer.html"></div>
+
+    <template id="menuItemTemplate">
+        <tr class="menu-item-row">
+            <td data-label="Item">
+                <div class="item-info">
+                    <img src="" alt="" class="item-thumbnail" loading="lazy">
+                    <div>
+                        <h3 class="item-name-en"></h3>
+                        <em class="item-name-es"></em>
+                    </div>
+                </div>
+            </td>
+            <td data-label="Price" class="item-price"></td>
+            <td data-label="Quantity">
+                <div class="quantity-spinner">
+                    <button type="button" class="spinner-btn minus" aria-label="Decrease quantity">−</button>
+                    <input type="number" value="0" min="0" max="99" step="1" class="item-quantity" inputmode="numeric" aria-label="Item quantity">
+                    <button type="button" class="spinner-btn plus" aria-label="Increase quantity">+</button>
+                </div>
+            </td>
+            <td data-label="Calories" class="item-calories calories-col">
+                <button type="button" class="toggle-calories text-button" aria-expanded="false">
+                    <span class="sr-only show-text" data-translate="menu.showCalories">Show calories</span>
+                    <span class="sr-only hide-text" data-translate="menu.hideCalories" style="display:none;">Hide calories</span>
+                    <span class="value"></span> kcal
+                </button>
+                <span class="calories-info" style="display:none;"></span>
+            </td>
+        </tr>
+    </template>
+
+    <template id="filterPillTemplate">
+        <button class="pill" role="radio"></button>
+    </template>
+
+    <template id="successMessageTemplate">
+        <div class="success-message">
+            <canvas id="confettiCanvas"></canvas>
+            <span class="checkmark" aria-hidden="true">✓</span>
+            <h2 data-translate="success.title">¡Gracias!</h2>
+            <p><span data-translate="success.messageP1">Your catering request <strong id="quoteId"></strong> has been submitted.</span></p>
+            <p data-translate="success.messageP2">We’ll confirm availability and details within 1 business day.</p>
+            <button id="bookAnotherEventBtn" class="cta-secondary" data-translate="success.bookAnother">Book Another Event</button>
+        </div>
+    </template>
+
+    <svg style="display:none;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <symbol id="icon-taco" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+              <path d="M89.6,38.8c-0.2-1.9-0.6-3.8-1.2-5.5c-0.7-1.7-1.6-3.3-2.7-4.8c-1.1-1.4-2.4-2.7-3.8-3.8 c-1.4-1.1-3-2.1-4.6-2.9c-0.2-0.1-0.3-0.2-0.5-0.3c-1.5-0.7-3-1.2-4.6-1.6c-1.5-0.4-3.1-0.6-4.7-0.7c-0.9-0.1-1.8-0.1-2.7-0.1 c-0.2,0-0.3,0-0.5,0c-0.9,0-1.8,0-2.7,0.1c-1.6,0.1-3.2,0.3-4.7,0.7c-1.6,0.4-3.1,0.9-4.6,1.6c-0.2,0.1-0.3,0.2-0.5,0.3 c-1.6,0.8-3.2,1.8-4.6,2.9c-1.4,1.1-2.7,2.4-3.8,3.8c-1.1,1.4-2,3-2.7,4.8c-0.7,1.7-1.1,3.6-1.2,5.5c-0.1,1-0.2,2-0.2,3 c0,0.2,0,0.3,0,0.5c0,0.9,0,1.8,0.1,2.7c0.1,1.6,0.3,3.2,0.7,4.7c0.4,1.6,0.9,3.1,1.6,4.6c0.1,0.2,0.2,0.3,0.3,0.5 c0.8,1.6,1.8,3.2,2.9,4.6c1.1,1.4,2.4,2.7,3.8,3.8c1.4,1.1,3,2.1,4.6,2.9c0.2,0.1,0.3,0.2,0.5,0.3c1.5,0.7,3,1.2,4.6,1.6 c1.5,0.4,3.1,0.6,4.7,0.7c0.9,0.1,1.8,0.1,2.7,0.1c0.2,0,0.3,0,0.5,0c0.9,0,1.8,0,2.7-0.1c1.6-0.1,3.2-0.3,4.7-0.7 c1.6-0.4,3.1-0.9,4.6-1.6c0.2-0.1,0.3-0.2,0.5-0.3c1.6-0.8,3.2-1.8,4.6-2.9c1.4-1.1,2.7-2.4,3.8-3.8c1.1-1.4,2-3,2.7-4.8 c0.7-1.7,1.1-3.6,1.2-5.5c0.1-1,0.2-2,0.2-3C89.7,40.8,89.7,39.8,89.6,38.8z M81.2,47.2c-1.6-1.2-3.3-2.2-5.1-3 c-0.6-0.3-1.2-0.5-1.8-0.8c-0.6-0.2-1.2-0.4-1.8-0.6c-1.1-0.4-2.3-0.7-3.4-1c-1.2-0.3-2.5-0.5-3.7-0.6c-1.1-0.1-2.1-0.2-3.2-0.2 c-0.1,0-0.1,0-0.2,0c-1.1,0-2.1,0.1-3.2,0.2c-1.2,0.1-2.5,0.3-3.7,0.6c-1.1,0.3-2.3,0.6-3.4,1c-0.6,0.2-1.2,0.4-1.8,0.6 c-0.6,0.3-1.2,0.5-1.8,0.8c-1.8,0.8-3.5,1.8-5.1,3C39.3,50,25.2,56.4,25.2,63.1c0,0,20.5,11.6,24.9,11.6s24.9-11.6,24.9-11.6 C74.9,56.4,60.8,50,46.6,47.2C59.3,44.9,70.2,44.5,81.2,47.2z"/>
+            </symbol>
+        </defs>
+    </svg>
+
+</body>
+</html>

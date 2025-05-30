@@ -1,0 +1,600 @@
+/* === TACOSNGANAS GLOBAL BASE STYLES === */
+
+:root {
+  /* Brand Colors */
+  --tg-pink: #EC008C; /* primary CTA + accents */
+  --tg-green: #00A86B; /* success / secondary CTA */
+  --tg-teal: #00A3E0; /* links, outlines, hover */
+  --tg-yellow: #F9C440; /* pills, highlights */
+
+  /* Neutral Colors */
+  --tg-bg: #FFFFFF; /* canvas background */
+  --tg-surface: #F9FAFB; /* card surfaces */
+  --tg-surface-alt: #F1F5F9; /* alt zebra rows */
+
+  /* Text Colors */
+  --tg-text: #262626; /* default copy colour */
+  --tg-text-muted: #636363; /* helper / meta text */
+
+  /* Shadow Tokens */
+  --tg-shadow-sm: 0 1px 2px rgba(0,0,0,.07);
+  --tg-shadow-md: 0 2px 6px rgba(0,0,0,.12);
+
+  /* Radius Tokens */
+  --tg-radius-sm: 4px;
+  --tg-radius-md: 8px;
+  --tg-radius-lg: 12px;
+
+  /* Motion Tokens */
+  --tg-ease-out: cubic-bezier(.35,.85,.35,1);
+  --tg-duration-fast: .15s;
+  --tg-duration-slow: .32s;
+
+  /* Font Tokens */
+  --tg-font-display: "Ranchers", cursive;
+  --tg-font-body: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Input Styling Tokens */
+  --tg-input-border: #d1d5db;
+  --tg-input-bg: var(--tg-surface);
+
+  /* Media Query Breakpoints (Integer values for potential JS use) */
+  --bp-sm: 480;
+  --bp-md: 768;
+  --bp-lg: 1024;
+  --bp-xl: 1440;
+
+  /* Dark Mode Inversion Tokens (Values to be defined in a theme file) */
+  --tg-bg-dark: initial;
+  --tg-surface-dark: initial;
+  --tg-surface-alt-dark: initial;
+  --tg-text-dark: initial;
+  --tg-text-muted-dark: initial;
+  --tg-input-border-dark: initial;
+  --tg-input-bg-dark: initial;
+}
+
+@layer reset, base, typography, elements, helpers, a11y;
+
+/* === RESET LAYER === */
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    font-size: 100%; /* Base font size: 16px */
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 112.5%; /* Scales base to 18px on large screens */
+    }
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: var(--tg-font-body);
+    line-height: 1.55;
+    background: var(--tg-bg);
+    color: var(--tg-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+  #root, #__next {
+    isolation: isolate;
+  }
+}
+
+/* === TYPOGRAPHY LAYER === */
+@layer typography {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: calc(1em + 0.6rem); /* For large headings */
+  }
+
+  h1 {
+    font-family: var(--tg-font-display);
+    font-size: clamp(2.4rem, 6vw + 1rem, 4.8rem);
+    letter-spacing: -0.020em;
+  }
+
+  h2 {
+    font-family: var(--tg-font-display);
+    font-size: clamp(2rem, 5vw + 0.5rem, 3.2rem);
+    letter-spacing: -0.018em;
+  }
+
+  h3 {
+    font-family: var(--tg-font-display);
+    font-size: clamp(1.6rem, 4vw + 0.3rem, 2.4rem);
+    letter-spacing: -0.016em;
+  }
+
+  h4 { /* font-family: var(--tg-font-body) */
+    font-size: 1.4rem; /* Approx 22.4px from 16px base, 25.2px from 18px base */
+    font-weight: 600;
+    letter-spacing: normal;
+  }
+  h5 { /* font-family: var(--tg-font-body) */
+    font-size: 1.2rem; /* Approx 19.2px from 16px base, 21.6px from 18px base */
+    font-weight: 600;
+    letter-spacing: normal;
+  }
+  h6 { /* font-family: var(--tg-font-body) */
+    font-size: 1rem; /* 16px from 16px base, 18px from 18px base */
+    font-weight: 600;
+    letter-spacing: normal;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 1.25em; /* Relative to parent, typically 20px or 22.5px */
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  strong, b {
+    font-weight: 600;
+  }
+
+  em, i {
+    font-style: italic;
+  }
+}
+
+/* === ELEMENTS LAYER === */
+@layer elements {
+  a {
+    color: var(--tg-teal);
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.15em;
+    transition: color var(--tg-duration-fast) var(--tg-ease-out);
+  }
+  a:hover, a:focus-visible {
+    color: var(--tg-pink);
+  }
+
+  :where(button, [type="button"], [type="submit"], [type="reset"], .btn) {
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    padding: 0.65em 1.2em;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--tg-radius-lg);
+    transition: transform var(--tg-duration-fast) var(--tg-ease-out),
+                box-shadow var(--tg-duration-fast) var(--tg-ease-out),
+                background-color var(--tg-duration-fast) var(--tg-ease-out),
+                border-color var(--tg-duration-fast) var(--tg-ease-out),
+                color var(--tg-duration-fast) var(--tg-ease-out);
+  }
+  :where(button, [type="button"], [type="submit"], [type="reset"], .btn):hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+  :where(button, [type="button"], [type="submit"], [type="reset"], .btn):active {
+    transform: translateY(0) scale(0.98);
+  }
+  :where(button, [type="button"], [type="submit"], [type="reset"], .btn):focus-visible {
+    outline: 3px dashed var(--tg-teal);
+    outline-offset: 3px;
+  }
+
+  .btn--primary {
+    background-color: var(--tg-pink);
+    color: #fff;
+  }
+  .btn--primary:hover {
+    background-color: color-mix(in srgb, var(--tg-pink) 90%, black 10%);
+  }
+
+  .btn--secondary {
+    background-color: var(--tg-green);
+    color: #fff;
+  }
+  .btn--secondary:hover {
+    background-color: color-mix(in srgb, var(--tg-green) 90%, black 10%);
+  }
+
+  .btn--ghost {
+    background-color: transparent;
+    border: 2px solid var(--tg-pink);
+    color: var(--tg-pink);
+  }
+  .btn--ghost:hover {
+    background-color: var(--tg-pink);
+    color: #fff;
+  }
+
+  /* Basic Input Styling (can be expanded in component-specific CSS) */
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), textarea, select) {
+    display: block;
+    width: 100%;
+    padding: 0.65em 1em;
+    font-family: var(--tg-font-body);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--tg-text);
+    background-color: var(--tg-input-bg);
+    background-clip: padding-box;
+    border: 1px solid var(--tg-input-border);
+    border-radius: var(--tg-radius-md);
+    transition: border-color var(--tg-duration-fast) ease-in-out, box-shadow var(--tg-duration-fast) ease-in-out;
+  }
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), textarea, select):focus {
+    border-color: var(--tg-teal);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--tg-teal) 25%, transparent);
+  }
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), textarea, select):invalid,
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), textarea, select).is-invalid {
+    border-color: var(--tg-pink);
+  }
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), textarea, select):invalid:focus,
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), textarea, select).is-invalid:focus {
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--tg-pink) 25%, transparent);
+  }
+
+  /* CSS-only Floating Label Field Structure:
+  <div class="field">
+    <input type="text" id="yourId" class="field__input" placeholder=" "> Required: placeholder with a space or actual text
+    <label for="yourId" class="field__label">Your Label</label>
+  </div>
+  */
+  .field {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .field__input {
+    /* Uses base input styles */
+    padding-top: 1.25rem; /* Make space for label */
+    padding-bottom: 0.5rem;
+  }
+  .field__label {
+    position: absolute;
+    top: 0.875rem; /* Vertically centered with input padding */
+    left: 1rem;
+    font-size: 1rem;
+    color: var(--tg-text-muted);
+    pointer-events: none;
+    transition: top var(--tg-duration-fast) var(--tg-ease-out),
+                font-size var(--tg-duration-fast) var(--tg-ease-out),
+                color var(--tg-duration-fast) var(--tg-ease-out);
+    background-color: var(--tg-input-bg); /* To cover input border when floated */
+    padding: 0 0.25rem; /* Create gap in border */
+  }
+  .field__input:focus + .field__label,
+  .field__input:not(:placeholder-shown) + .field__label {
+    top: -0.5rem; /* Adjust to sit above the input border */
+    font-size: 0.75rem;
+    color: var(--tg-teal);
+  }
+  .field__input:invalid + .field__label,
+  .field__input.is-invalid + .field__label {
+    color: var(--tg-pink);
+  }
+  .field__input:invalid:focus + .field__label,
+  .field__input.is-invalid:focus + .field__label {
+     color: var(--tg-pink);
+  }
+
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.75rem;
+    border: 1px solid var(--tg-input-border); /* Using input border for consistency */
+  }
+  th {
+    font-weight: 600;
+    background-color: var(--tg-surface-alt);
+  }
+  .table--zebra tbody tr:nth-child(even) {
+    background-color: var(--tg-surface-alt);
+  }
+
+  img { /* display:block, max-width:100% already in reset */
+    height: auto;
+    border-radius: var(--tg-radius-md);
+    vertical-align: middle; /* Removes bottom space */
+  }
+
+  .icon {
+    display: inline-block; /* Changed from inline-size/block-size for broader compatibility */
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: -0.125em; /* Better alignment with text */
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--tg-input-border);
+    margin: 2rem 0;
+  }
+}
+
+/* === HELPERS LAYER === */
+@layer helpers {
+  .u-text-center { text-align: center !important; }
+  .u-text-left   { text-align: left !important; }
+  .u-text-right  { text-align: right !important; }
+
+  .u-visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+  .u-sr-only-focusable:active,
+  .u-sr-only-focusable:focus {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+
+  .u-shadow-sm { box-shadow: var(--tg-shadow-sm) !important; }
+  .u-shadow-md { box-shadow: var(--tg-shadow-md) !important; }
+
+  .u-radius-sm { border-radius: var(--tg-radius-sm) !important; }
+  .u-radius-md { border-radius: var(--tg-radius-md) !important; }
+  .u-radius-lg { border-radius: var(--tg-radius-lg) !important; }
+
+  .u-z-10 { z-index: 10 !important; }
+  .u-z-20 { z-index: 20 !important; }
+  .u-z-30 { z-index: 30 !important; }
+  .u-z-40 { z-index: 40 !important; }
+
+  .u-overflow-auto   { overflow: auto !important; }
+  .u-overflow-hidden { overflow: hidden !important; }
+  .u-overflow-x-auto { overflow-x: auto !important; }
+  .u-overflow-y-auto { overflow-y: auto !important; }
+
+  .u-pointer-none { pointer-events: none !important; }
+
+  /* Spacing Utilities */
+  .u-m-0  { margin: 0 !important; }
+  .u-mt-0 { margin-top: 0 !important; }
+  .u-mr-0 { margin-right: 0 !important; }
+  .u-mb-0 { margin-bottom: 0 !important; }
+  .u-ml-0 { margin-left: 0 !important; }
+  .u-mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+  .u-my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+
+  .u-m-1  { margin: 0.25rem !important; }
+  .u-mt-1 { margin-top: 0.25rem !important; }
+  .u-mr-1 { margin-right: 0.25rem !important; }
+  .u-mb-1 { margin-bottom: 0.25rem !important; }
+  .u-ml-1 { margin-left: 0.25rem !important; }
+  .u-mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+  .u-my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+
+  .u-m-2  { margin: 0.5rem !important; }
+  .u-mt-2 { margin-top: 0.5rem !important; }
+  .u-mr-2 { margin-right: 0.5rem !important; }
+  .u-mb-2 { margin-bottom: 0.5rem !important; }
+  .u-ml-2 { margin-left: 0.5rem !important; }
+  .u-mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+  .u-my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+
+  .u-m-3  { margin: 0.75rem !important; }
+  .u-mt-3 { margin-top: 0.75rem !important; }
+  .u-mr-3 { margin-right: 0.75rem !important; }
+  .u-mb-3 { margin-bottom: 0.75rem !important; }
+  .u-ml-3 { margin-left: 0.75rem !important; }
+  .u-mx-3 { margin-left: 0.75rem !important; margin-right: 0.75rem !important; }
+  .u-my-3 { margin-top: 0.75rem !important; margin-bottom: 0.75rem !important; }
+
+  .u-m-4  { margin: 1rem !important; }
+  .u-mt-4 { margin-top: 1rem !important; }
+  .u-mr-4 { margin-right: 1rem !important; }
+  .u-mb-4 { margin-bottom: 1rem !important; }
+  .u-ml-4 { margin-left: 1rem !important; }
+  .u-mx-4 { margin-left: 1rem !important; margin-right: 1rem !important; }
+  .u-my-4 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+
+  .u-m-6  { margin: 1.5rem !important; }
+  .u-mt-6 { margin-top: 1.5rem !important; }
+  .u-mr-6 { margin-right: 1.5rem !important; }
+  .u-mb-6 { margin-bottom: 1.5rem !important; }
+  .u-ml-6 { margin-left: 1.5rem !important; }
+  .u-mx-6 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+  .u-my-6 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+
+  .u-m-8  { margin: 2rem !important; }
+  .u-mt-8 { margin-top: 2rem !important; }
+  .u-mr-8 { margin-right: 2rem !important; }
+  .u-mb-8 { margin-bottom: 2rem !important; }
+  .u-ml-8 { margin-left: 2rem !important; }
+  .u-mx-8 { margin-left: 2rem !important; margin-right: 2rem !important; }
+  .u-my-8 { margin-top: 2rem !important; margin-bottom: 2rem !important; }
+
+  .u-p-0  { padding: 0 !important; }
+  .u-pt-0 { padding-top: 0 !important; }
+  .u-pr-0 { padding-right: 0 !important; }
+  .u-pb-0 { padding-bottom: 0 !important; }
+  .u-pl-0 { padding-left: 0 !important; }
+  .u-px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+  .u-py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+  .u-p-1  { padding: 0.25rem !important; }
+  .u-pt-1 { padding-top: 0.25rem !important; }
+  .u-pr-1 { padding-right: 0.25rem !important; }
+  .u-pb-1 { padding-bottom: 0.25rem !important; }
+  .u-pl-1 { padding-left: 0.25rem !important; }
+  .u-px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+  .u-py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+
+  .u-p-2  { padding: 0.5rem !important; }
+  .u-pt-2 { padding-top: 0.5rem !important; }
+  .u-pr-2 { padding-right: 0.5rem !important; }
+  .u-pb-2 { padding-bottom: 0.5rem !important; }
+  .u-pl-2 { padding-left: 0.5rem !important; }
+  .u-px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+  .u-py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+
+  .u-p-3  { padding: 0.75rem !important; }
+  .u-pt-3 { padding-top: 0.75rem !important; }
+  .u-pr-3 { padding-right: 0.75rem !important; }
+  .u-pb-3 { padding-bottom: 0.75rem !important; }
+  .u-pl-3 { padding-left: 0.75rem !important; }
+  .u-px-3 { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+  .u-py-3 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+
+  .u-p-4  { padding: 1rem !important; }
+  .u-pt-4 { padding-top: 1rem !important; }
+  .u-pr-4 { padding-right: 1rem !important; }
+  .u-pb-4 { padding-bottom: 1rem !important; }
+  .u-pl-4 { padding-left: 1rem !important; }
+  .u-px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .u-py-4 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+
+  .u-p-6  { padding: 1.5rem !important; }
+  .u-pt-6 { padding-top: 1.5rem !important; }
+  .u-pr-6 { padding-right: 1.5rem !important; }
+  .u-pb-6 { padding-bottom: 1.5rem !important; }
+  .u-pl-6 { padding-left: 1.5rem !important; }
+  .u-px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+  .u-py-6 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+
+  .u-p-8  { padding: 2rem !important; }
+  .u-pt-8 { padding-top: 2rem !important; }
+  .u-pr-8 { padding-right: 2rem !important; }
+  .u-pb-8 { padding-bottom: 2rem !important; }
+  .u-pl-8 { padding-left: 2rem !important; }
+  .u-px-8 { padding-left: 2rem !important; padding-right: 2rem !important; }
+  .u-py-8 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+}
+
+/* === ACCESSIBILITY LAYER === */
+@layer a11y {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :root {
+      --tg-pink: LinkText;
+      --tg-green: ButtonText; /* Assuming green is often on buttons or success states */
+      --tg-teal: LinkText;
+      --tg-yellow: MarkText; /* For highlights, on Mark background */
+      --tg-bg: Canvas;
+      --tg-surface: Canvas; /* Or ButtonFace if interactive */
+      --tg-surface-alt: Canvas;
+      --tg-text: CanvasText;
+      --tg-text-muted: GrayText;
+      --tg-input-border: ButtonText; /* Or FieldText on Field */
+      --tg-input-bg: Field;
+      --tg-shadow-sm: none;
+      --tg-shadow-md: none;
+    }
+    /* Ensure buttons and links are distinguishable */
+    :where(button, [type="button"], [type="submit"], [type="reset"], .btn) {
+      border: 2px solid ButtonText;
+      background-color: ButtonFace;
+      color: ButtonText;
+    }
+    .btn--primary, .btn--secondary { /* Ensure they use system colors */
+        background-color: ButtonFace;
+        color: ButtonText;
+        border: 2px solid Highlight; /* Differentiate primary/secondary if possible */
+    }
+    a {
+      color: LinkText;
+      text-decoration: underline;
+    }
+    :where(input:not([type="checkbox"]):not([type="radio"]), textarea, select) {
+        border: 1px solid FieldText;
+        background-color: Field;
+        color: FieldText;
+    }
+  }
+}
+
+/* === PRINT STYLES === */
+@media print {
+  body {
+    font-family: sans-serif; /* Use a common print font */
+    color: #000 !important;
+    background-color: #fff !important;
+  }
+
+  nav, footer, aside, dialog, .no-print {
+    display: none !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+
+  img, svg {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  table, figure {
+    page-break-inside: avoid;
+  }
+
+  *, *::before, *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}

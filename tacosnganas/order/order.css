@@ -1,0 +1,904 @@
+/* /Users/davidbaum/tacosnganas/order/order.css */
+@import url('../css/base.css');
+/* Assuming a theme file might exist, e.g., ../css/themes/tacosnganas.css */
+/* Or, define theme variables directly if not using a separate theme file */
+
+:root {
+  --tg-pink: #EC008C;
+  --tg-green: #00A86B;
+  --tg-teal: #00A3E0;
+  --tg-yellow: #F9C440;
+  --tg-confetti-1: #F9595A;
+  --tg-confetti-2: #F9D14C;
+  --tg-confetti-3: #5AC85F;
+  --tg-confetti-4: #2AACED;
+  --tg-bg: #FFFFFF;
+  --tg-text: #262626;
+  --tg-text-muted: #6b7280; /* Example muted text color */
+  --tg-text-light: #FFFFFF;
+  --tg-border: #e5e7eb; /* Example border color */
+  --tg-shadow: rgba(0, 0, 0, .12);
+  --tg-shadow-lg: rgba(0, 0, 0, .18);
+  --tg-radius: 12px;
+  --font-display: "Ranchers", cursive;
+  --font-body: "Inter", sans-serif;
+  --nav-height: 60px; /* Example nav height, adjust as needed */
+  --footer-height: 100px; /* Example footer height */
+  --section-padding: clamp(2rem, 5vw, 4rem);
+}
+
+/* Fallback if theme variables are not defined by base.css or a theme file */
+:root {
+  --tg-pink: #EC008C;
+  --tg-green: #00A86B;
+  --tg-teal: #00A3E0;
+  --tg-yellow: #F9C440;
+  --tg-confetti-1: #F9595A;
+  --tg-confetti-2: #F9D14C;
+  --tg-confetti-3: #5AC85F;
+  --tg-confetti-4: #2AACED;
+  --tg-bg: #FFFFFF;
+  --tg-text: #262626;
+  --tg-shadow: rgba(0, 0, 0, .12);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--tg-text);
+  background-color: var(--tg-bg);
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums; /* For numerical UI */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--tg-pink); /* Default headline color */
+}
+
+a {
+  color: var(--tg-teal);
+  text-decoration: none;
+}
+a:hover, a:focus-visible {
+  text-decoration: underline;
+  color: var(--tg-green);
+}
+
+button, .button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.75em 1.5em;
+  border-radius: var(--tg-radius);
+  border: none;
+  cursor: pointer;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  text-align: center;
+}
+button:hover, .button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 8px var(--tg-shadow);
+}
+button:active, .button:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 2px 4px var(--tg-shadow);
+}
+button:focus-visible, .button:focus-visible {
+  outline: 2px solid var(--tg-teal);
+  outline-offset: 2px;
+}
+
+.button-primary {
+  background-color: var(--tg-pink);
+  color: var(--tg-text-light);
+}
+.button-primary:hover {
+  background-color: #d4007b; /* Darker pink */
+}
+
+.button-secondary {
+  background-color: var(--tg-green);
+  color: var(--tg-text-light);
+}
+.button-secondary:hover {
+  background-color: #008c59; /* Darker green */
+}
+
+.button-tertiary {
+  background-color: transparent;
+  color: var(--tg-teal);
+  border: 2px solid var(--tg-teal);
+}
+.button-tertiary:hover {
+  background-color: var(--tg-teal);
+  color: var(--tg-text-light);
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  padding: 0.75em 1em;
+  border: 1px solid var(--tg-border);
+  border-radius: var(--tg-radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--tg-teal);
+  border-color: var(--tg-teal);
+  box-shadow: 0 0 0 3px rgba(0, 163, 224, 0.2);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Page Layout & Structure */
+.order-page-container,
+.checkout-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+/* Hero Ribbon */
+.hero-ribbon {
+  min-height: calc(60vh - var(--nav-height)); /* Adjusted for better visibility */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--section-padding) 1rem;
+  background-image: linear-gradient(rgba(0, 163, 224, 0.3), rgba(0, 163, 224, 0.3)), url('../images/hero/picture_OfFood2.jpeg');
+  background-size: cover;
+  background-position: center;
+  color: var(--tg-text-light);
+  position: relative;
+  /* Speech bubble notch - simplified for broader compatibility */
+  /* clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0% calc(100% - 20px)); */
+}
+.hero-ribbon::before { /* Notch attempt */
+  content: '';
+  position: absolute;
+  bottom: -19px; /* Adjust to align with bottom */
+  left: 30px; /* Adjust for desired position */
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid var(--tg-bg); /* Color of the section below hero */
+  /* This is a simplified notch. A more complex SVG clip-path is better for the exact logo shape. */
+}
+
+
+.hero-ribbon h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--tg-pink);
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.breadcrumb-nav ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.breadcrumb-nav a {
+  color: var(--tg-text-light);
+  opacity: 0.8;
+}
+.breadcrumb-nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+.breadcrumb-nav li:not(:last-child)::after {
+  content: ">";
+  margin-left: 0.5rem;
+  opacity: 0.8;
+}
+
+/* Main Content Area */
+.order-content, .checkout-content {
+  padding: var(--section-padding) clamp(1rem, 5vw, 3rem);
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Page Grid for Order Page */
+.page-grid {
+  display: grid;
+  gap: clamp(1rem, 4vw, 3rem);
+}
+
+@media (min-width: 1024px) {
+  .page-grid {
+    grid-template-columns: 1fr 320px; /* Main content and aside */
+  }
+}
+
+/* Cart Table */
+.cart-table-section {
+  position: relative; /* Added for notch positioning */
+  margin-bottom: var(--section-padding);
+  /* Add margin-top if notch is outside and needs space, e.g., margin-top: 20px; */
+}
+.cart-table-section::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Adjust to sit above or cut into the panel's top edge */
+  left: 25px;  /* Adjust horizontal position */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid var(--tg-bg); /* Use panel's background color */
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.05)); /* Subtle shadow for definition */
+}
+
+/* Subtle angular notch on top-left of main cart panel */
+.cart-table-section::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Adjust to sit above or cut into the panel's top edge */
+  left: 25px;  /* Adjust horizontal position */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  /* Assuming the panel background is light, and notch points up from it */
+  /* This creates a triangle pointing upwards. Color should be panel's background. */
+  /* If panel has a border, this needs careful integration. */
+  /* For a notch like the logo (part of a border/frame), SVG or complex clip-path is better. */
+  /* This is a simple interpretation. */
+  border-bottom: 10px solid var(--tg-bg); /* Use panel's background color */
+  /* If the panel itself has a distinct background, use that. E.g. #f9f9f9 if it's like financial-summary */
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.05)); /* Subtle shadow for definition */
+}
+
+.cart-table-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--tg-green);
+}
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px var(--tg-shadow);
+  border-radius: var(--tg-radius);
+  overflow: hidden; /* For border-radius on table */
+}
+.cart-table th, .cart-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--tg-border);
+}
+.cart-table thead th {
+  background-color: var(--tg-teal);
+  color: var(--tg-text-light);
+  font-weight: 600;
+  position: sticky;
+  top: 0; /* For sticky header */
+  z-index: 10;
+}
+.cart-table tbody tr:nth-child(even) {
+  background-color: #F5F5F5;
+}
+.cart-table tbody tr:hover {
+  background-color: rgba(236, 0, 140, 0.05); /* Light pink hover */
+}
+.item-name strong {
+  display: block;
+  font-weight: 600;
+}
+.item-name small {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: var(--tg-text-muted);
+}
+.quantity-stepper {
+  display: flex;
+  align-items: center;
+}
+.quantity-stepper button {
+  background: none;
+  border: 1px solid var(--tg-border);
+  color: var(--tg-text);
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  border-radius: 50%;
+}
+.quantity-stepper button:hover {
+  background-color: var(--tg-border);
+  transform: none; /* Override default button hover */
+  box-shadow: none;
+}
+.quantity-stepper input[type="number"] {
+  width: 40px;
+  text-align: center;
+  border: none;
+  padding: 0.5em;
+  margin: 0 0.25rem;
+  appearance: textfield; /* Standard property */
+  -moz-appearance: textfield; /* Firefox */
+}
+.remove-item-btn {
+  background: none;
+  border: none;
+  color: var(--tg-pink);
+  font-size: 1.5rem;
+  padding: 0.25rem;
+}
+.remove-item-btn:hover {
+  color: #d4007b;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Accordion for cart groups */
+.accordion-group summary {
+  font-weight: 600;
+  padding: 1rem;
+  background-color: var(--tg-yellow);
+  color: var(--tg-text);
+  cursor: pointer;
+  list-style: none; /* Remove default marker */
+}
+.accordion-group summary::-webkit-details-marker { display: none; } /* Chrome/Safari */
+.accordion-group summary::marker { display: none; } /* Firefox */
+.accordion-group summary:hover {
+  background-color: #f7b828;
+}
+.accordion-group[open] summary {
+  border-bottom: 1px solid var(--tg-border);
+}
+
+/* Upsell Carousel */
+.upsell-carousel-section {
+  margin-bottom: var(--section-padding);
+}
+.upsell-carousel-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--tg-green);
+}
+.upsell-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem; /* For scrollbar visibility */
+  scroll-snap-type: x mandatory;
+}
+.upsell-chip {
+  flex: 0 0 auto;
+  padding: 0.75rem 1.25rem;
+  border: 2px dashed var(--tg-pink);
+  border-radius: var(--tg-radius);
+  background-color: var(--tg-bg);
+  cursor: pointer;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  scroll-snap-align: start;
+  text-align: center;
+}
+.upsell-chip:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px var(--tg-shadow);
+  border-style: solid;
+}
+.upsell-chip strong { display: block; margin-bottom: 0.25rem; }
+
+/* Financial Summary Aside */
+.financial-summary {
+  padding: 1.5rem;
+  background-color: #f9f9f9; /* Light grey background */
+  border-radius: var(--tg-radius);
+  box-shadow: 0 2px 8px var(--tg-shadow);
+}
+@media (min-width: 1024px) {
+  .financial-summary {
+    position: sticky;
+    top: calc(var(--nav-height) + 1rem); /* Adjust based on actual nav height */
+    max-height: calc(100vh - var(--nav-height) - 2rem);
+    overflow-y: auto;
+  }
+}
+.financial-summary h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--tg-teal);
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+.summary-row.total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tg-border);
+}
+.promo-code-field {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.promo-code-field input {
+  flex-grow: 1;
+}
+.promo-code-field button {
+  padding: 0.75em 1em; /* Smaller padding for apply button */
+}
+.tipping-options {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+.tipping-options legend {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.tipping-options fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.tipping-options input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.tipping-options label {
+  padding: 0.5em 1em;
+  border: 1px solid var(--tg-border);
+  border-radius: var(--tg-radius);
+  cursor: pointer;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out;
+}
+.tipping-options input[type="radio"]:checked + label {
+  background-color: var(--tg-teal);
+  color: var(--tg-text-light);
+  border-color: var(--tg-teal);
+}
+.tipping-options input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--tg-pink);
+  outline-offset: 1px;
+}
+.checkout-button {
+  width: 100%;
+  padding: 1em;
+  font-size: 1.1rem;
+}
+
+/* Mobile Summary Dialog */
+.mobile-summary-dialog {
+  border: none;
+  border-radius: var(--tg-radius) var(--tg-radius) 0 0;
+  padding: 0;
+  box-shadow: 0 -5px 15px var(--tg-shadow-lg);
+  max-width: 100%;
+  width: 100%;
+  margin: auto auto 0 auto; /* Bottom sheet style */
+}
+.mobile-summary-dialog::backdrop {
+  background-color: rgba(0,0,0,0.5);
+}
+.mobile-summary-dialog .financial-summary {
+  box-shadow: none;
+  border-radius: 0; /* Reset border radius inside dialog */
+}
+.mobile-summary-trigger {
+  display: none; /* Hidden by default, shown on mobile */
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Trust Badges */
+.trust-badges-section {
+  padding: var(--section-padding) 0;
+  text-align: center;
+  background-color: #f0fdf4; /* Light green background */
+}
+.trust-badges-section h2 {
+  margin-bottom: 2rem;
+  color: var(--tg-green);
+}
+.trust-badges-grid {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 500px) {
+  .trust-badges-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+@media (min-width: 768px) {
+  .trust-badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.badge-item svg { /* Assuming inline SVG or img for icons */
+  width: 48px;
+  height: 48px;
+  color: var(--tg-green);
+  margin-bottom: 0.5rem;
+}
+.badge-item p {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Empty Cart State */
+.empty-cart-message {
+  border: 2px dashed var(--tg-teal);
+  border-radius: var(--tg-radius);
+  padding: clamp(2rem, 8vw, 4rem);
+  text-align: center;
+  margin: var(--section-padding) auto;
+  max-width: 600px;
+  position: relative;
+}
+.empty-cart-message::before,
+.empty-cart-message::after { /* Confetti dots */
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: confetti-sparkle 1.5s infinite ease-in-out;
+}
+.empty-cart-message::before {
+  background-color: var(--tg-confetti-1);
+  top: 15px; left: 15px;
+  animation-delay: 0s;
+}
+.empty-cart-message::after {
+  background-color: var(--tg-confetti-2);
+  bottom: 15px; right: 15px;
+  animation-delay: 0.5s;
+}
+/* Add more confetti dots as pseudo-elements on a container inside if needed */
+.empty-cart-message svg { /* Placeholder for taco illustration */
+  width: 100px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  fill: var(--tg-text-muted);
+}
+.empty-cart-message h3 {
+  color: var(--tg-pink);
+  margin-bottom: 1rem;
+}
+.empty-cart-message p {
+  margin-bottom: 1.5rem;
+}
+
+/* Checkout Page Specifics */
+.progress-indicator {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--tg-border);
+  margin-bottom: var(--section-padding);
+  list-style: none;
+}
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--tg-text-muted);
+}
+.progress-step.active {
+  color: var(--tg-teal);
+  font-weight: 600;
+}
+.progress-step.completed {
+  color: var(--tg-green);
+}
+.progress-step .icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--tg-text-muted);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.progress-step.active .icon {
+  border-color: var(--tg-teal);
+  background-color: var(--tg-teal);
+  color: var(--tg-text-light);
+}
+.progress-step.completed .icon {
+  border-color: var(--tg-green);
+  background-color: var(--tg-green);
+  color: var(--tg-text-light);
+}
+
+.checkout-form-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--tg-bg);
+  border-radius: var(--tg-radius);
+  box-shadow: 0 2px 8px var(--tg-shadow);
+}
+.checkout-form-section h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--tg-green);
+  border-bottom: 2px solid var(--tg-yellow);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .form-grid.two-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.input-field {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.input-field label:not(.sr-only) { /* Floating label */
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--tg-bg);
+  padding: 0 0.25em;
+  color: var(--tg-text-muted);
+  transition: top 150ms ease-out, font-size 150ms ease-out, color 150ms ease-out;
+  pointer-events: none;
+}
+.input-field input:focus + label,
+.input-field input:not(:placeholder-shown) + label,
+.input-field textarea:focus + label,
+.input-field textarea:not(:placeholder-shown) + label {
+  top: 0;
+  font-size: 0.8em;
+  color: var(--tg-teal);
+}
+.input-field input.is-invalid,
+.input-field textarea.is-invalid {
+  border-color: var(--tg-pink);
+}
+.input-field input.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(236, 0, 140, 0.2);
+}
+.input-field .error-message {
+  font-size: 0.8rem;
+  color: var(--tg-pink);
+  margin-top: 0.25rem;
+}
+
+#doordash-payment-iframe { /* Placeholder for DoorDash iframe styling */
+  min-height: 150px; /* Adjust as needed */
+  border: 1px solid var(--tg-border);
+  border-radius: var(--tg-radius);
+}
+
+/* Confirmation Page */
+.confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--section-padding);
+  min-height: calc(80vh - var(--nav-height));
+}
+.confirmation-container h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: var(--tg-pink);
+  margin-bottom: 1rem;
+}
+.confirmation-container p {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+.order-details-summary {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: var(--tg-radius);
+  min-width: 300px;
+  max-width: 500px;
+}
+.order-details-summary strong {
+  color: var(--tg-teal);
+}
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Animations */
+@keyframes confetti-sparkle {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+
+@keyframes slide-fade-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+.item-removing {
+  animation: slide-fade-out 300ms ease-out forwards;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  button:hover, .button:hover {
+    transform: none;
+  }
+  .upsell-chip:hover {
+    transform: none;
+  }
+}
+
+/* Dark Theme (Future-proofing) */
+@media (prefers-color-scheme: dark) {
+  /* :root {
+    --tg-bg: #1a1a1a;
+    --tg-text: #f0f0f0;
+    --tg-text-muted: #a0a0a0;
+    --tg-border: #444444;
+    --tg-shadow: rgba(255, 255, 255, .08);
+    --tg-shadow-lg: rgba(255, 255, 255, .12);
+  }
+  .cart-table tbody tr:nth-child(even) {
+    background-color: #2c2c2c;
+  }
+  .cart-table tbody tr:hover {
+    background-color: rgba(236, 0, 140, 0.15);
+  }
+  .financial-summary, .checkout-form-section {
+    background-color: #252525;
+  }
+  .empty-cart-message {
+    border-color: var(--tg-teal);
+  }
+  .input-field label {
+    background-color: var(--tg-bg);
+  }
+  .trust-badges-section {
+    background-color: #013220; Dark green variant
+  }
+  */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1023px) {
+  .financial-summary-aside {
+    display: none; /* Hide aside, use dialog instead */
+  }
+  .mobile-summary-trigger {
+    display: inline-block; /* Show button to trigger dialog */
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-ribbon {
+    min-height: calc(50vh - var(--nav-height));
+  }
+  .hero-ribbon h1 {
+    font-size: 2rem;
+  }
+  .cart-table thead {
+    /* On small screens, the sticky header might take too much space or be hard to use.
+       Consider alternatives if table layout becomes an issue.
+       For now, it remains sticky as per earlier rules.
+       If a card-based layout were adopted for rows on mobile,
+       the traditional `thead` might be hidden (e.g., `display: none;`).
+       However, without implementing such a layout, the header should remain.
+    */
+  }
+  /* Example of how to handle less critical columns on small screens:
+     This example hides the unit price and line total columns.
+     Adjust selectors based on actual table structure and which columns are less critical.
+  .cart-table th:nth-child(3),
+  .cart-table td:nth-child(3),
+  .cart-table th:nth-child(4),
+  .cart-table td:nth-child(4) {
+    display: none;
+  }
+  */
+  .item-details-mobile { /* Example for stacking table cells */
+    display: block;
+    font-size: 0.9em;
+    color: var(--tg-text-muted);
+  }
+  .form-grid.two-cols {
+    grid-template-columns: 1fr; /* Stack form columns */
+  }
+  .progress-indicator {
+    font-size: 0.8rem;
+  }
+  .progress-step span:not(.icon) {
+    display: none; /* Show only icons on very small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .button, button {
+    padding: 0.6em 1.2em;
+    font-size: 0.95rem;
+  }
+  .hero-ribbon h1 {
+    font-size: 1.8rem;
+  }
+  .breadcrumb-nav {
+    font-size: 0.8rem;
+  }
+  .upsell-chip {
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Layer for order-specific styles if needed for cascade control */
+@layer order {
+  /* All styles above could be wrapped in this layer if desired */
+}

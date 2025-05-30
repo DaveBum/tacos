@@ -1,0 +1,319 @@
+:root {
+    /* Color Palette */
+    --tg-teal: #00A3E0;
+    --tg-pink: #EC008C;
+    --tg-green: #00A86B;
+    --tg-yellow: #F9C440;
+    --tg-bg: #FFFFFF;
+    --tg-surface: #F9FAFB;
+    --tg-shadow: rgba(0,0,0,.14);
+    --tg-text-primary: #212529; /* Assuming a dark text for accessibility */
+    --tg-text-secondary: #6C757D; /* Assuming a lighter gray for secondary text */
+    --tg-border-color: #DEE2E6; /* For subtle borders */
+
+    /* Confetti Palette (use sparingly) */
+    --confetti-red: #F9595A;
+    --confetti-yellow: #F9D14C;
+    --confetti-green: #5AC85F;
+    --confetti-blue: #2AACED;
+
+    /* Typography */
+    --font-display: 'Ranchers', cursive;
+    --font-body: 'Inter', sans-serif;
+
+    /* Shapes & Motion */
+    --border-radius-md: 12px;
+    --transition-duration: 160ms;
+    --transition-timing-function: ease-out;
+}
+
+/* Global Resets & Base Styles (assuming these might be in base.css) */
+body {
+    font-family: var(--font-body);
+    color: var(--tg-text-primary);
+    background-color: var(--tg-bg);
+    margin: 0;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--tg-teal);
+    text-decoration: none;
+    transition: color var(--transition-duration) var(--transition-timing-function);
+}
+
+a:hover, a:focus {
+    color: color-mix(in srgb, var(--tg-teal) 80%, #000 20%);
+    text-decoration: underline;
+}
+
+/* Focus visible styling for accessibility */
+*:focus-visible {
+    outline: 3px solid var(--tg-teal);
+    outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Page Header/Footer Placeholders - Style as per actual components */
+#page-header-placeholder, #page-footer-placeholder {
+    padding: 1rem;
+    background-color: var(--tg-surface);
+    text-align: center;
+    border-bottom: 1px solid var(--tg-border-color);
+}
+#page-footer-placeholder {
+    border-top: 1px solid var(--tg-border-color);
+    border-bottom: none;
+    margin-top: 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+    background-image: url('../images/hero/picture_OfFood2.jpeg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: var(--tg-bg); /* White text on dark overlay */
+    text-align: center;
+    padding: 4rem 1rem;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--tg-teal);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 0.5rem;
+    font-weight: 700; /* Ranchers is typically bold */
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+}
+
+/* Map and Listings Section */
+.map-and-listings-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+    .map-and-listings-section {
+        grid-template-columns: 2fr 1fr; /* Map takes more space on larger screens */
+    }
+}
+
+#map-container {
+    height: 500px; /* Default height, can be adjusted */
+    background-color: #e0e0e0; /* Placeholder background */
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 12px var(--tg-shadow);
+    overflow: hidden; /* Ensures map corners are rounded */
+}
+
+#locations-list-container h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--tg-pink);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+@media (min-width: 992px) {
+    #locations-list-container h2 {
+        text-align: left;
+    }
+}
+
+#locations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.location-card {
+    background-color: var(--tg-surface);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 8px var(--tg-shadow);
+    padding: 1.5rem;
+    transition: transform var(--transition-duration) var(--transition-timing-function), 
+                box-shadow var(--transition-duration) var(--transition-timing-function);
+    cursor: pointer; /* Indicates interactivity */
+}
+
+.location-card:hover, .location-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px var(--tg-shadow);
+}
+
+.location-card.active-location {
+    border: 2px solid var(--tg-pink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--tg-pink) 50%, transparent);
+}
+
+.location-card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: calc(var(--border-radius-md) - 4px); /* Slightly smaller radius for inset effect */
+    margin-bottom: 1rem;
+}
+
+.location-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--tg-text-primary);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.location-card p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--tg-text-secondary);
+}
+
+.location-card .address, .location-card .phone, .location-card .hours {
+    margin-bottom: 0.75rem;
+}
+
+.location-card .hours-title {
+    font-weight: 600;
+    color: var(--tg-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.location-card .hours ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.location-card .hours ul li {
+    margin-bottom: 0.25rem;
+}
+
+.location-card .directions-link {
+    display: inline-block;
+    background-color: var(--tg-pink);
+    color: var(--tg-bg);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color var(--transition-duration) var(--transition-timing-function);
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.location-card .directions-link:hover, .location-card .directions-link:focus {
+    background-color: color-mix(in srgb, var(--tg-pink) 80%, #000 20%);
+    color: var(--tg-bg);
+    text-decoration: none;
+}
+
+/* Custom Map Marker Styles (if using default markers, these might not apply directly) */
+.custom-map-pin {
+    /* This would be for HTML-based markers if not using custom SVG directly with Maps API */
+    width: 32px;
+    height: 48px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 48" width="32" height="48"><path fill="%23EC008C" d="M16 0C7.163 0 0 7.163 0 16c0 2.795.708 5.422 2.001 7.752L16 48l13.999-24.248C31.292 21.422 32 18.795 32 16 32 7.163 24.837 0 16 0zm0 24a8 8 0 110-16 8 8 0 010 16z"/><!-- Simplified taco/sombrero shape --><path fill="%23F9C440" d="M10 14 Q16 10 22 14 Q16 18 10 14Z"/></svg>'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.custom-map-pin .pin-label {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--tg-bg);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Infobox Styling (if using Google Maps InfoWindow) */
+.gm-style .gm-style-iw-c {
+    border-radius: var(--border-radius-md) !important;
+    padding: 1rem !important;
+    box-shadow: 0 4px 12px var(--tg-shadow) !important;
+}
+
+.gm-style .gm-style-iw-d {
+    overflow: auto !important; /* Ensure content scrolls if too long */
+}
+
+.infowindow-content {
+    font-family: var(--font-body);
+}
+
+.infowindow-content h4 {
+    font-family: var(--font-display);
+    color: var(--tg-pink);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.infowindow-content p {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.infowindow-content a {
+    color: var(--tg-teal);
+    font-weight: 600;
+}
+
+/* Subtle decorative elements */
+.confetti-decoration {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+/* Example of using confetti colors - to be placed strategically by JS if desired */
+.confetti-1 { background-color: var(--confetti-red); }
+.confetti-2 { background-color: var(--confetti-yellow); }
+.confetti-3 { background-color: var(--confetti-green); }
+.confetti-4 { background-color: var(--confetti-blue); }
+

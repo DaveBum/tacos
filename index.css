@@ -1,0 +1,779 @@
+/* General Styles & Variables */
+:root {
+    --tg-pink: #EC008C;
+    --tg-green: #00A86B;
+    --tg-teal: #00A3E0;
+    --tg-yellow: #F9C440;
+    --tg-bg: #FFFFFF;
+    --tg-text: #262626;
+    --tg-shadow: rgba(0,0,0,.12);
+
+    /* Confetti - use sparingly */
+    --confetti-red: #F9595A;
+    --confetti-yellow-bright: #F9D14C;
+    --confetti-green-bright: #5AC85F; /* Renamed for clarity */
+    --confetti-blue: #2AACED;
+
+    --font-heading: 'Ranchers', cursive;
+    --font-body: 'Inter', sans-serif;
+
+    --corner-radius: 12px;
+    --section-spacing: clamp(3rem, 8vw, 6rem); /* Increased min spacing */
+    --animation-duration: 160ms;
+    --animation-timing: cubic-bezier(.35,.85,.35,1);
+
+    /* RGB versions for rgba gradients if needed, or use hex with alpha */
+    --tg-text-rgb: 38, 38, 38;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--tg-text);
+    background-color: var(--tg-bg);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6; /* Slightly increased for readability */
+    font-size: 17px; /* Slightly increased base font size */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+    background-color: var(--tg-pink);
+    color: var(--tg-text-on-pink);
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header img {
+    max-width: 200px;
+    margin-bottom: 0.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: var(--tg-text-on-pink);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.container {
+    width: 90%;
+    max-width: 1280px; /* Slightly wider max container */
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+section {
+    padding: var(--section-spacing) 0;
+    margin-bottom: 3rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: normal; /* Ranchers is already bold */
+    color: var(--tg-green); /* Default heading color */
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    margin-bottom: 0.6em;
+    color: var(--tg-pink); /* Hero title often uses a primary accent */
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1em; /* Increased margin */
+    text-align: center;
+    font-family: var(--tg-font-display);
+    color: var(--tg-pink);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--tg-pink);
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1.5em; /* Increased paragraph spacing */
+}
+
+a {
+    color: var(--tg-pink);
+    text-decoration: none;
+    transition: color var(--animation-duration) var(--animation-timing);
+}
+
+a:hover, a:focus {
+    color: var(--tg-teal);
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--corner-radius); /* Default rounded corners for images */
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.highlight-pink { color: var(--tg-pink); }
+.highlight-green { color: var(--tg-green); }
+.highlight-teal { color: var(--tg-teal); }
+.highlight-yellow { color: var(--tg-yellow); }
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 14px 32px; /* Slightly larger padding */
+    font-family: var(--font-heading); /* Use heading font for buttons */
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    letter-spacing: 1px;
+    border-radius: var(--corner-radius);
+    text-decoration: none;
+    transition: background-color var(--animation-duration) var(--animation-timing),
+                color var(--animation-duration) var(--animation-timing),
+                transform var(--animation-duration) var(--animation-timing),
+                box-shadow var(--animation-duration) var(--animation-timing);
+    cursor: pointer;
+    border: 2px solid transparent;
+    text-align: center;
+    font-weight: normal; /* Ranchers is bold */
+    box-shadow: 0 2px 4px var(--tg-shadow);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px var(--tg-shadow);
+}
+
+.btn-primary {
+    background-color: var(--tg-pink);
+    color: var(--tg-bg);
+    border-color: var(--tg-pink);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #D4007A; /* Darker pink */
+    border-color: #D4007A;
+    color: var(--tg-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--tg-shadow);
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: var(--tg-green);
+    color: var(--tg-bg);
+    border-color: var(--tg-green);
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+    background-color: #008F5B; /* Darker green */
+    border-color: #008F5B;
+    color: var(--tg-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--tg-shadow);
+    text-decoration: none;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--tg-pink);
+    border-color: var(--tg-pink);
+}
+
+.btn-outline:hover, .btn-outline:focus {
+    background-color: var(--tg-pink);
+    color: var(--tg-bg);
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--tg-shadow);
+}
+
+.btn-outline.green {
+    color: var(--tg-green);
+    border-color: var(--tg-green);
+}
+.btn-outline.green:hover, .btn-outline.green:focus {
+    background-color: var(--tg-green);
+    color: var(--tg-bg);
+}
+
+
+.btn-large {
+    padding: 18px 40px;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+/* Header */
+.site-header {
+    background-color: var(--tg-bg);
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px var(--tg-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color var(--animation-duration) var(--animation-timing); /* For potential scroll effects */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-image {
+    height: clamp(50px, 10vw, 70px); /* Responsive logo size */
+    border-radius: 0; /* Logos usually don't have border-radius */
+}
+
+.primary-navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.primary-navigation li {
+    margin-left: clamp(15px, 3vw, 35px); /* Responsive spacing */
+}
+
+.primary-navigation a {
+    font-family: var(--font-body); /* Body font for nav links for readability */
+    font-weight: 600; /* Semi-bold */
+    color: var(--tg-text);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    padding: 5px 0;
+    position: relative;
+}
+
+.primary-navigation a::after { /* Underline hover effect */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--tg-pink);
+    transition: width var(--animation-duration) var(--animation-timing);
+}
+
+.primary-navigation a:hover::after,
+.primary-navigation a:focus::after,
+.primary-navigation a.active::after {
+    width: 100%;
+}
+
+.primary-navigation a:hover,
+.primary-navigation a:focus,
+.primary-navigation a.active {
+    color: var(--tg-pink);
+    text-decoration: none;
+}
+
+.nav-cta { /* Special CTA button in nav */
+    background-color: var(--tg-pink);
+    color: var(--tg-bg) !important;
+    padding: 10px 20px;
+    border-radius: var(--corner-radius);
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    letter-spacing: 0.5px;
+    transition: background-color var(--animation-duration) var(--animation-timing);
+}
+
+.nav-cta:hover, .nav-cta:focus {
+    background-color: #D4007A; /* Darker pink */
+    color: var(--tg-bg) !important;
+    text-decoration: none;
+    box-shadow: 0 2px 5px var(--tg-shadow);
+}
+.nav-cta::after { display: none; } /* No underline for CTA button */
+
+
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001; /* Above nav list */
+}
+
+.mobile-nav-toggle .icon-menu,
+.mobile-nav-toggle .icon-close {
+    width: 30px;
+    height: 30px;
+    color: var(--tg-green);
+}
+.icon-close { display: none; }
+
+
+/* Hero Section */
+.hero {
+    background-color: var(--tg-text); /* Fallback color */
+    background-image: linear-gradient(rgba(var(--tg-text-rgb), 0.55), rgba(var(--tg-text-rgb), 0.35)), image-set(
+        url('/images/hero/picture_OfFood1.jpeg') type('image/jpeg'), /* Primary */
+        url('/images/hero/picture_OfFood2.jpeg') type('image/jpeg')  /* Secondary/fallback */
+    );
+    background-size: cover;
+    background-position: center center;
+    color: var(--tg-bg);
+    padding: var(--section-spacing) 0;
+    text-align: center;
+    min-height: 75vh; /* Increased height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* For potential pseudo-elements */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.hero-content {
+    max-width: 800px; /* Wider content */
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    color: var(--tg-bg); /* White text on dark bg */
+    font-size: clamp(3rem, 8vw, 5.5rem); /* Even larger hero title */
+    text-shadow: 0 3px 8px rgba(0,0,0,0.6); /* More pronounced shadow */
+    font-family: var(--tg-font-display);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: var(--tg-yellow);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--tg-radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color var(--tg-duration-fast) var(--tg-ease-out);
+}
+
+.btn--primary {
+    background-color: var(--tg-yellow);
+    color: var(--tg-text);
+}
+
+.btn--primary:hover {
+    background-color: #edd981; /* Slightly darker yellow */
+}
+
+.delivery-info {
+    margin-top: 35px;
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    opacity: 0.85;
+}
+
+/* Section Styling */
+section {
+    padding: var(--section-spacing) 0;
+}
+
+.about-us {
+    background-color: var(--tg-bg); /* Use main background */
+    text-align: center;
+}
+
+.about-us h2 .highlight-green { /* Already green by default */
+    /* color: var(--tg-green); */
+}
+.about-us h2 .highlight-pink {
+    color: var(--tg-pink);
+}
+
+
+.about-us p {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.about-us-image {
+    max-width: clamp(280px, 50vw, 450px);
+    margin: 30px auto;
+    box-shadow: 0 10px 30px var(--tg-shadow); /* Enhanced shadow */
+}
+
+/* Menu Highlights Section */
+.menu-highlights {
+    background-color: #f7fdf9; /* Very light green tint for subtle differentiation */
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); /* Responsive columns */
+    gap: clamp(20px, 4vw, 40px); /* Responsive gap */
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.highlight-item {
+    background-color: var(--tg-bg);
+    border-radius: var(--corner-radius);
+    box-shadow: 0 5px 15px var(--tg-shadow);
+    overflow: hidden;
+    text-align: center;
+    padding: 0; /* Padding will be inside content area */
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--animation-duration) var(--animation-timing),
+                box-shadow var(--animation-duration) var(--animation-timing);
+}
+
+.highlight-item:hover {
+    transform: translateY(-8px) scale(1.02); /* More noticeable hover */
+    box-shadow: 0 12px 25px rgba(var(--tg-text-rgb),0.18); /* Darker shadow on hover */
+}
+
+.highlight-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 4px solid var(--tg-pink); /* Thicker border */
+    margin-bottom: 0;
+    border-radius: 0; /* Image takes top corners, card has radius */
+    border-top-left-radius: var(--corner-radius);
+    border-top-right-radius: var(--corner-radius);
+}
+
+.highlight-item-content {
+    padding: 25px;
+    flex-grow: 1; /* Allows content to fill space if items have different text length */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.highlight-item-content p {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    margin-bottom: 0; /* Remove bottom margin if it's the last element */
+}
+.highlight-item-content h3 {
+    margin-top: 0; /* Remove top margin if it's the first element */
+}
+
+
+.menu-highlights .btn-primary { /* Button at the bottom of the section */
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0; /* Adjusted margin */
+}
+
+.taco-hat {
+    position: absolute;
+    /* put the image’s centre above the button */
+    left: 46%;
+    top: -12px;
+    /* only set one dimension so the other scales automatically */
+    width: 60px;          /* tweak as needed */
+    height: auto;         /* preserves aspect ratio */
+    /* rotate without stretching */
+    transform: translate( 70%, -5%) rotate(45deg); /* Adjusted Y translate from -20% to -5% */
+    transform-origin: center center;
+    z-index: 10;
+    /* optional: if the PNG has extra transparent padding,
+       you can trim it visually like this */
+    object-fit: contain;
+}
+/* CTA Section */
+.cta-section {
+    /* Set a fallback background color first */
+    background-color: var(--tg-text); /* Fallback if image fails, dark bg for light text */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('tacosnganas/images/ui/taco_Logo.png'); /* Added overlay */
+    background-size: 40%, auto; /* MODIFIED: Shrunk logo from 60% to 40%. Adjust as needed. */
+    background-repeat: no-repeat, repeat; /* no-repeat for logo, repeat for overlay */
+    background-position: center center;
+    
+    color: var(--tg-bg); /* Default text color to white for this section */
+    padding: var(--section-spacing) 0;
+    text-align: center;
+    border-radius: var(--corner-radius);
+    margin: var(--section-spacing) auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(var(--tg-pink), 0.3);
+    position: relative; /* For potential z-indexing if needed, though overlay should handle it */
+}
+
+.cta-section.full-width { /* Add this class in HTML if you want it full bleed */
+    border-radius: 0;
+    max-width: none;
+    margin-left: 0; margin-right: 0;
+}
+
+
+.cta-section h2 {
+    color: var(--tg-bg); /* Ensures h2 is white */
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Added text shadow */
+}
+
+.cta-section p {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    margin-bottom: 35px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--tg-bg); /* Ensure p is white */
+    opacity: 1; /* Ensure full opacity for white text */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Added text shadow */
+}
+
+.cta-section .btn-primary { /* Button in CTA */
+    background-color: var(--tg-bg);
+    color: var(--tg-pink);
+    border-color: var(--tg-bg);
+    transform: scale(1.05); /* Make it pop a bit */
+}
+.cta-section .btn-primary:hover, .cta-section .btn-primary:focus {
+    background-color: var(--tg-yellow);
+    color: var(--tg-text);
+    border-color: var(--tg-yellow);
+    box-shadow: 0 5px 15px rgba(var(--tg-text-rgb), 0.2);
+}
+
+
+/* Footer */
+.site-footer-main {
+    background-color: var(--tg-text);
+    color: var(--tg-bg);
+    padding: clamp(40px, 6vw, 60px) 0;
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(30px, 5vw, 50px);
+    align-items: start;
+}
+
+.footer-logo img {
+    max-height: clamp(45px, 8vw, 60px);
+    margin-bottom: 15px;
+    border-radius: 0;
+}
+
+.footer-logo p {
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    opacity: 0.7;
+}
+
+.footer-links h4, .footer-social h4 {
+    font-family: var(--font-heading);
+    color: var(--tg-yellow); /* Yellow for footer headings */
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    margin-bottom: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: var(--tg-bg);
+    opacity: 0.8;
+    transition: opacity var(--animation-duration) var(--animation-timing), color var(--animation-duration) var(--animation-timing);
+}
+
+.footer-links a:hover, .footer-links a:focus {
+    color: var(--tg-yellow); /* Highlight with yellow */
+    opacity: 1;
+    text-decoration: none; /* No underline in footer links for cleaner look */
+}
+
+.footer-social a {
+    margin-right: 18px;
+    display: inline-block;
+}
+.footer-social a:last-child {
+    margin-right: 0;
+}
+
+.footer-social img { /* Assuming SVG or transparent PNG icons */
+    width: clamp(24px, 4vw, 30px);
+    height: clamp(24px, 4vw, 30px);
+    opacity: 0.8;
+    transition: opacity var(--animation-duration) var(--animation-timing), transform var(--animation-duration) var(--animation-timing);
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%); /* Makes icons white */
+}
+.footer-social a:hover img, .footer-social a:focus img {
+    opacity: 1;
+    transform: scale(1.1);
+    /* Confetti hover for social icons - subtle */
+    /* Example: border-bottom: 2px solid var(--confetti-blue); */
+}
+/* Example of using confetti colors sparingly:
+.footer-social a:nth-child(1):hover img { filter: drop-shadow(0 0 3px var(--confetti-red)); }
+.footer-social a:nth-child(2):hover img { filter: drop-shadow(0 0 3px var(--confetti-yellow-bright)); }
+.footer-social a:nth-child(3):hover img { filter: drop-shadow(0 0 3px var(--confetti-green-bright)); }
+*/
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body { font-size: 16px; } /* Adjust base for mobile */
+
+    .primary-navigation ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Position below header */
+        left: 0;
+        right: 0; /* Ensure full width */
+        background-color: var(--tg-bg);
+        box-shadow: 0 8px 15px var(--tg-shadow);
+        padding: 15px 0;
+        border-top: 1px solid #eee; /* Light separator */
+    }
+
+    .primary-navigation ul.active {
+        display: flex;
+    }
+
+    .primary-navigation li {
+        margin: 0; /* Remove left margin */
+        width: 100%;
+    }
+    .primary-navigation li:not(:last-child) {
+         /* border-bottom: 1px solid #eee; */ /* Cleaner without too many lines */
+    }
+    .primary-navigation a {
+        display: block;
+        padding: 15px 20px; /* Generous tap targets */
+        text-align: center;
+        font-size: 1.1rem;
+    }
+    .primary-navigation a::after { display: none; } /* No underline effect on mobile nav items */
+    .primary-navigation a:hover, .primary-navigation a:focus, .primary-navigation a.active {
+        background-color: var(--tg-pink); /* Highlight active/hovered item */
+        color: var(--tg-bg);
+    }
+
+    .nav-cta { /* Mobile CTA */
+        margin: 15px 20px;
+        display: block;
+        text-align: center;
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+    }
+
+    .header-container {
+        position: relative;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-actions .btn {
+        margin: 12px 0;
+        width: 80%;
+        max-width: 320px;
+    }
+
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-logo, .footer-links, .footer-social {
+        margin-bottom: 30px;
+    }
+    .footer-social a {
+        margin: 0 10px;
+    }
+}
+
+/* Accessibility - Focus Visible */
+.skip-link:focus {
+    position: static; /* Or absolute if it needs to overlay */
+    width: auto;
+    height: auto;
+    margin: 10px; /* Give it space */
+    padding: 15px;
+    clip: auto;
+    background-color: var(--tg-yellow);
+    color: var(--tg-text);
+    text-decoration: none;
+    z-index: 10000;
+    border-radius: var(--corner-radius);
+    box-shadow: 0 0 10px var(--tg-shadow);
+}
+
+/* Consistent focus styles for all interactive elements */
+*:focus-visible {
+    outline: 3px solid var(--tg-teal); /* Use a theme color for focus */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px rgba(var(--tg-teal), 0.3); /* Softer glow */
+}
+
+/* Remove default outline only if custom focus is applied via :focus-visible */
+*:focus:not(:focus-visible) {
+  outline: none;
+}

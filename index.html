@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TacoNGanas - Authentic Memphis Tacos with Ganas</title>
+    <meta name="description" content="Experience authentic Memphis-style tacos at TacoNGanas. From our signature al pastor to fresh street tacos, taste the difference that ganas makes. Order online for pickup or delivery.">
+    <meta name="keywords" content="tacos, Memphis, Mexican food, al pastor, street tacos, authentic, TacoNGanas, delivery, pickup, mexican restaurant">
+
+    <!-- Preconnections -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font Preloads & Styles -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ranchers&family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ranchers&family=Inter:wght@400;600;700&display=swap"></noscript>
+    
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/ui/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/ui/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/ui/apple-touch-icon.png">
+    <link rel="mask-icon" href="/images/ui/safari-pinned-tab.svg" color="#EC008C">
+
+
+    <!-- Theme and PWA -->
+    <meta name="theme-color" content="#EC008C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <!-- Preload critical assets -->
+    <link rel="preload" as="image" href="tacosnganas/images/hero/picture_OfFood2.jpeg" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="tacosnganas/images/hero/picture_OfFood2.jpeg" type="image/jpeg" fetchpriority="high">
+    <link rel="preload" as="image" href="tacosnganas/images/ui/web_logo_TACONGANAS.png" fetchpriority="high">
+
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="tacosnganas/css/base.css">
+    <link rel="stylesheet" href="tacosnganas/css/layout.css">
+    <link rel="stylesheet" href="tacosnganas/css/themes/tacosnganas.css">
+    <link rel="stylesheet" href="index.css"> <!-- Page-specific styles -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" media="print" onload="this.media='all'">
+
+
+    <!-- SEO Meta Tags -->
+    <link rel="canonical" href="https://www.tacosnganas.com/">
+    <meta property="og:title" content="TacoNGanas - Authentic Mexican Street Food with Ganas!">
+    <meta property="og:description" content="Taste the passion! Order authentic Memphis-style tacos, al pastor, and more from TacoNGanas. Fast pickup & delivery. Catering available.">
+    <meta property="og:image" content="https://www.tacosnganas.com/images/hero/picture_OfFood2.jpeg"> <!-- Primary OG image -->
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:url" content="https://www.tacosnganas.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="restaurant:contact_info:street_address" content="1080 N Germantown Parkway">
+    <meta property="restaurant:contact_info:locality" content="Cordova">
+    <meta property="restaurant:contact_info:region" content="TN">
+    <meta property="restaurant:contact_info:postal_code" content="38018">
+    <meta property="restaurant:contact_info:country_name" content="US">
+    <meta property="restaurant:contact_info:email" content="info@tacosnganas.com">
+    <meta property="restaurant:contact_info:phone_number" content="+1-901-555-TACO">
+    <meta property="restaurant:menu" content="https://www.tacosnganas.com/menu/menu.html">
+
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TacoNGanas - Tacos with Ganas!">
+    <meta name="twitter:description" content="Authentic Mexican street food that hits different. Order online now for the best tacos in Memphis!">
+    <meta name="twitter:image" content="https://www.tacosnganas.com/images/hero/picture_OfFood2.jpeg">
+    <!-- <meta name="twitter:site" content="@TacoNGanas"> Assuming a Twitter handle -->
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "TacoNGanas",
+      "image": [
+        "https://www.tacosnganas.com/images/ui/web_logo_TACONGANAS.png",
+        "https://www.tacosnganas.com/images/hero/picture_OfFood2.webp", // Changed to webp
+        "https://www.tacosnganas.com/images/hero/picture_OfFood1.webp"  // Added another image
+       ],
+      "description": "Authentic Mexican street food with a Memphis soul. Taste the Ganas!",
+      "servesCuisine": "Mexican",
+      "url": "https://www.tacosnganas.com/",
+      "telephone": "+1-901-555-TACO",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1080 N Germantown Parkway",
+        "addressLocality": "Cordova",
+        "addressRegion": "TN",
+        "postalCode": "38018",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Sunday"
+          ],
+          "opens": "11:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "11:00",
+          "closes": "23:00"
+        }
+      ],
+      "menu": "https://www.tacosnganas.com/menu/menu.html",
+      "acceptsReservations": "False",
+      "potentialAction": {
+        "@type": "OrderAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.tacosnganas.com/order/order.html",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/IOSPlatform",
+            "http://schema.org/AndroidPlatform"
+          ]
+        },
+        "deliveryMethod": [
+          "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet",
+          "http://purl.org/goodrelations/v1#DeliveryModePickUp"
+        ]
+      },
+      "hasMap": "https://www.google.com/maps/place/1080+N+Germantown+Pkwy,+Cordova,+TN+38018"
+    }
+    </script>
+</head>
+<body class="font-body">
+    <a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo-link">
+                <img src="tacosnganas/images/ui/web_logo_TACONGANAS.png" alt="TacoNGanas Logo" class="logo-image">
+            </a>
+            <nav class="primary-navigation" aria-label="Main navigation">
+                <button class="mobile-nav-toggle" aria-controls="primary-nav-list" aria-expanded="false">
+                    <span class="visually-hidden">Menu</span>
+                    <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                    <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+                </button>
+                <ul id="primary-nav-list">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="tacosnganas/menu/menu.html">Menu</a></li>
+                    <li><a href="tacosnganas/locations/locations.html">Locations</a></li>
+                    <li><a href="tacosnganas/catering/catering.html">Catering</a></li>
+                    <li style="text-align:center; position:relative;">
+                        <img
+                            src="tacosnganas/images/ui/taco_hat.png"
+                            alt="Taco Hat Icon"
+                            class="taco-hat"
+                        >
+                        <a
+                            href="tacosnganas/order/order.html"
+                            class="nav-cta btn btn-primary"
+                            style="position:relative; z-index:1;"
+                        >Order Online</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-content container">
+                <h1>Taste the <span class="highlight-yellow">Ganas</span>!</h1>
+                <p>Authentic Memphis Tacos Made with Passion & The Freshest Ingredients.</p>
+                <div class="hero-actions">
+                    <a href="tacosnganas/order/order.html" class="btn btn-primary btn-large">Order Now</a>
+                    <a href="tacosnganas/menu/menu.html" class="btn btn-outline white">View Menu</a>
+                </div>
+                <p class="delivery-info">Fast Pickup & Delivery Available!</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="menu-highlights">
+                <h2>Our Famous <span class="highlight-pink">Tacos</span></h2>
+                <div class="highlights-grid">
+                    <div class="highlight-item">
+                        <img src="tacosnganas/images/hero/picture_OfFood1.jpeg" alt="Al Pastor Tacos">
+                        <div class="highlight-item-content">
+                            <h3>Al Pastor</h3>
+                            <p>Our signature spit-roasted pork, marinated in a blend of traditional spices and chiles. A true classic!</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <img src="tacosnganas/images/hero/picture_OfFood2.jpeg" alt="Carne Asada Tacos">
+                        <div class="highlight-item-content">
+                            <h3>Carne Asada</h3>
+                            <p>Tender grilled steak, seasoned to perfection and served with fresh cilantro, onions, and salsa.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                         <img src="tacosnganas/images/menu/pollo_asado_tacos.webp" alt="Pollo Asado Tacos"> <!-- Placeholder - replace with actual image -->
+                        <div class="highlight-item-content">
+                            <h3>Pollo Asado</h3>
+                            <p>Juicy grilled chicken, full of flavor and perfect for a lighter, delicious option.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2.5rem;">
+                    <a href="tacosnganas/menu/menu.html" class="btn btn-secondary">View Full Menu</a>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2>Ready for an <span class="highlight-yellow">Unforgettable</span> Meal?</h2>
+                    <p>Join the TacoNGanas family and experience the vibrant flavors of authentic Mexican street food. Your taste buds will thank you!</p>
+                    <a href="tacosnganas/order/order.html" class="btn btn-primary btn-large">Order Online!</a>
+                </div>
+            </section>
+
+            <section class="locations">
+                <h2>Find a TacoNGanas <span class="highlight-green">Near You</span></h2>
+                <div class="highlights-grid location-grid">
+                    <div class="highlight-item location-item">
+                        <img src="tacosnganas/images/locations/1080 N Germantown Parkway Cordova, TN 38018.jpeg" alt="TacoNGanas Cordova Location">
+                        <div class="highlight-item-content">
+                            <h3>Cordova</h3>
+                            <address>1080 N Germantown Parkway, Cordova, TN 38018</address>
+                            <a href="tel:+19015551234" class="location-phone"> (901) 555-1234</a>
+                        </div>
+                    </div>
+                    <div class="highlight-item location-item">
+                        <img src="tacosnganas/images/locations/2120 Central Avenue Memphis, TN 38104.jpeg" alt="TacoNGanas Midtown Location">
+                        <div class="highlight-item-content">
+                            <h3>Midtown Memphis</h3>
+                            <address>2120 Central Avenue, Memphis, TN 38104</address>
+                            <a href="tel:+19015555678" class="location-phone"> (901) 555-5678</a>
+                        </div>
+                    </div>
+                </div>
+                 <div style="text-align: center; margin-top: 2.5rem;">
+                    <a href="tacosnganas/locations/locations.html" class="btn btn-secondary">All Locations & Hours</a>
+                </div>
+            </section>
+
+            <section class="about-us">
+                <h2>More Than Just Tacos, It's <span class="highlight-pink">Ganas</span>!</h2>
+                <img src="tacosnganas/images/ui/team_photo_fun.webp" alt="TacoNGanas team members smiling" class="about-us-image">
+                <p>At TacoNGanas, "ganas" means passion, effort, and a desire to do things right. It's in every taco we make, every ingredient we source, and every customer we serve. We started with a simple dream: to bring authentic Mexican street food to Memphis, made with the freshest ingredients and a whole lot of heart. Come taste the difference that ganas makes!</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer-main">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="tacosnganas/images/ui/web_logo_TACONGANAS_white.png" alt="TacoNGanas Logo White"> <!-- Assuming a white version for dark bg -->
+                    <p>Authentic Mexican street food made with passion and the freshest ingredients. Taste the Ganas!</p>
+                    <p class="copyright">&copy; <span id="currentYear"></span> TacoNGanas. All Rights Reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="tacosnganas/menu/menu.html">Full Menu</a></li>
+                        <li><a href="tacosnganas/locations/locations.html">Our Locations</a></li>
+                        <li><a href="tacosnganas/catering/catering.html">Catering Services</a></li>
+                        <li><a href="tacosnganas/order/order.html">Order Online</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <address>
+                        1080 N Germantown Parkway<br>
+                        Cordova, TN 38018
+                    </address>
+                    <p><a href="mailto:info@tacosnganas.com">info@tacosnganas.com</a></p>
+                    <p><a href="tel:+19015558226">+1 (901) 555-TACO (8226)</a></p>
+                    <div class="footer-social">
+                        <h4>Follow Us</h4>
+                        <a href="#" aria-label="TacoNGanas on Facebook"><img src="tacosnganas/images/icons/facebook.svg" alt="Facebook"></a>
+                        <a href="#" aria-label="TacoNGanas on Instagram"><img src="tacosnganas/images/icons/instagram.svg" alt="Instagram"></a>
+                        <a href="#" aria-label="TacoNGanas on Twitter"><img src="tacosnganas/images/icons/twitter.svg" alt="Twitter"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Accessibility Statement</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Basic mobile nav toggle
+        const navToggle = document.querySelector('.mobile-nav-toggle');
+        const primaryNav = document.querySelector('.primary-navigation ul');
+        const iconMenu = navToggle.querySelector('.icon-menu');
+        const iconClose = navToggle.querySelector('.icon-close');
+
+        navToggle.addEventListener('click', () => {
+            const isExpanded = primaryNav.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isExpanded);
+            if (isExpanded) {
+                iconMenu.style.display = 'none';
+                iconClose.style.display = 'block';
+            } else {
+                iconMenu.style.display = 'block';
+                iconClose.style.display = 'none';
+            }
+        });
+
+    </script>
+    <!-- Swiper JS (deferred) -->
+    <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js" defer></script>
+    <!-- App specific JS -->
+    <script src="tacosnganas/js/app.js" defer></script>
+</body>
+</html>

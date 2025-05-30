@@ -1,0 +1,200 @@
+{
+  "restaurant_name_en": "TacoNGanas",
+  "restaurant_name_es": "TacoNGanas",
+  "sections": [
+    {
+      "type": "meats",
+      "title_en": "CHOOSE YOUR MEAT",
+      "title_es": "ELIGE TU CARNE",
+      "options": [
+        {
+          "name_en": "AL PASTOR",
+          "description_en": "Marinated pork in various spices and pineapple.",
+          "name_es": "AL PASTOR",
+          "description_es": "Cerdo marinado en diversas especias y piña."
+        },
+        {
+          "name_en": "ASADA",
+          "description_en": "Thin cut beef steak chopped and grilled.",
+          "name_es": "ASADA",
+          "description_es": "Filete de res delgado, picado y a la parrilla."
+        },
+        {
+          "name_en": "BARBACOA",
+          "description_en": "Marinated beef that's slow roasted and shredded.",
+          "name_es": "BARBACOA",
+          "description_es": "Carne de res marinada, cocida lentamente y deshebrada."
+        },
+        {
+          "name_en": "CAMARONES",
+          "description_en": "Marinated grilled shrimp.",
+          "name_es": "CAMARONES",
+          "description_es": "Camarones marinados a la parrilla."
+        },
+        {
+          "name_en": "CARNITAS",
+          "description_en": "Pulled pieces of pork.",
+          "name_es": "CARNITAS",
+          "description_es": "Trozos de cerdo deshebrado."
+        },
+        {
+          "name_en": "CHICHARRON",
+          "description_en": "Pork skins in red salsa.",
+          "name_es": "CHICHARRÓN",
+          "description_es": "Chicharrón en salsa roja."
+        },
+        {
+          "name_en": "POLLO",
+          "description_en": "Marinated chicken breast.",
+          "name_es": "POLLO",
+          "description_es": "Pechuga de pollo marinada."
+        }
+      ]
+    },
+    {
+      "type": "dishes",
+      "title_en": "PREPARATION STYLE",
+      "title_es": "ESTILO DE PREPARACIÓN",
+      "items": [
+        {
+          "price": 3.99,
+          "name_en": "TACONGANAS [SPECIALTY TACOS]",
+          "description_en": "Choice of meat, in a corn tortilla dipped in an oil prepared with dried peppers. Topped with fresh onions, cilantro and melted cheese, served with a side of curtido, limes and salsa.",
+          "name_es": "TACONGANAS [TACOS DE ESPECIALIDAD]",
+          "description_es": "Elección de carne, en tortilla de maíz bañada en aceite preparado con chiles secos. Cubierto con cebolla fresca, cilantro y queso derretido, servido con curtido, limones y salsa.",
+          "allows_meat_choice": true
+        },
+        {
+          "price": 4.89,
+          "name_en": "TACONGANAS SHRIMP TACO",
+          "description_en": "Succulent shrimp, in a corn tortilla dipped in an oil prepared with dried peppers. Topped with fresh onions, cilantro and melted cheese, served with a side of curtido, limes and salsa.",
+          "name_es": "TACO TACONGANAS DE CAMARÓN",
+          "description_es": "Suculentos camarones, en tortilla de maíz bañada en aceite preparado con chiles secos. Cubierto con cebolla fresca, cilantro y queso derretido, servido con curtido, limones y salsa."
+        },
+        {
+          "price": 3.49,
+          "name_en": "STREET TACOS [TRADITIONAL TACOS]",
+          "description_en": "Choice of meat, in corn tortillas, topped with fresh cilantro and onions, served with limes and salsa on the side.",
+          "name_es": "TACOS DE CALLE [TACOS TRADICIONALES]",
+          "description_es": "Elección de carne, en tortillas de maíz, cubiertos con cilantro fresco y cebolla, servidos con limones y salsa aparte.",
+          "allows_meat_choice": true
+        },
+        {
+          "price": 4.54,
+          "name_en": "SHRIMP STREET TACO",
+          "description_en": "Succulent shrimp, in a corn tortilla, covered with our in-house chipotle cream sauce, lettuce and pico-de-gallo, served with limes and salsa on the side.",
+          "name_es": "TACO DE CALLE DE CAMARÓN",
+          "description_es": "Suculentos camarones, en tortilla de maíz, cubiertos con nuestra salsa de crema chipotle de la casa, lechuga y pico de gallo, servidos con limones y salsa aparte."
+        },
+        {
+          "price": 12.49,
+          "name_en": "BURRITO",
+          "description_en": "Choice of meat, in a flour tortilla, filled with rice, beans, fresh onions and cilantro and melted cheese, and accompanied with a side of limes and salsa.",
+          "name_es": "BURRITO",
+          "description_es": "Elección de carne, en tortilla de harina, relleno de arroz, frijoles, cebolla fresca, cilantro y queso derretido, acompañado de limones y salsa.",
+          "allows_meat_choice": true
+        },
+        {
+          "price": 12.49,
+          "name_en": "TORTA",
+          "description_en": "Choice of meat prepared in a Mexican submarine sandwich topped with refried beans, shredded melted cheese, our in-house chipotle cream sauce, our in-house avocado cream sauce and lettuce.",
+          "name_es": "TORTA",
+          "description_es": "Elección de carne preparada en un sándwich submarino mexicano cubierto con frijoles refritos, queso derretido rallado, nuestra salsa de crema chipotle de la casa, nuestra salsa de crema de aguacate de la casa y lechuga.",
+          "allows_meat_choice": true
+        },
+        {
+          "price": 12.49,
+          "name_en": "QUESADILLA",
+          "description_en": "Gigantic flour tortilla filled with the meat of your choice, shredded melted cheese, cilantro and onion.",
+          "name_es": "QUESADILLA",
+          "description_es": "Tortilla de harina gigante rellena con la carne de su elección, queso derretido rallado, cilantro y cebolla.",
+          "allows_meat_choice": true
+        },
+        {
+          "price": 9.99,
+          "name_en": "QUESADILLA QUESO",
+          "description_en": "Gigantic flour tortilla filled with shredded melted cheese, cilantro and onion.",
+          "name_es": "QUESADILLA DE QUESO",
+          "description_es": "Tortilla de harina gigante rellena con queso derretido rallado, cilantro y cebolla."
+        },
+        {
+          "price": 16.99,
+          "name_en": "QUESADILLA CONGANAS",
+          "description_en": "Gigantic flour tortilla dipped in an oil prepared with dried peppers, filled with the meat of your choice, shredded melted cheese, cilantro and onion. Served with a side of our famous consomé.",
+          "name_es": "QUESADILLA CONGANAS",
+          "description_es": "Tortilla de harina gigante bañada en aceite preparado con chiles secos, rellena con la carne de su elección, queso derretido rallado, cilantro y cebolla. Servida con un lado de nuestro famoso consomé.",
+          "allows_meat_choice": true
+        },
+        {
+          "price": 9.49,
+          "name_en": "TACOS DE CANASTA",
+          "description_en": "Our steamed tacos come in an order of 5 tacos, and are prepared with your choice of fillings. They are cooked and accompanied with a side of pickled cabbage, limes and salsa.",
+          "description_es": "Nuestros tacos al vapor vienen en orden de 5 tacos, y se preparan con su elección de rellenos. Se cocinan y acompañan con repollo encurtido, limones y salsa.",
+          "filling_options": [
+            {
+              "name_en": "potatoes and Mexican sausage",
+              "name_es": "papas con chorizo mexicano"
+            },
+            {
+              "name_en": "pork skins in red salsa",
+              "name_es": "chicharrón en salsa roja"
+            },
+            {
+              "name_en": "refried beans",
+              "name_es": "frijoles refritos"
+            }
+          ]
+        },
+        {
+          "price": 27.99,
+          "name_en": "PIZZA BIRRIA",
+          "description_en": "Yes! It's a Mexican Pizza, but it's TacoNGanas style. Bigger and better! Comes with our famous 8oz consomé for free! Come reward your taste buds!",
+          "name_es": "PIZZA DE BIRRIA",
+          "description_es": "¡Sí! Es una Pizza Mexicana, pero estilo TacoNGanas. ¡Más grande y mejor! ¡Viene con nuestro famoso consomé de 8oz gratis! ¡Ven a premiar tu paladar!"
+        },
+        {
+          "price": 32.99,
+          "name_en": "SHRIMP PIZZA",
+          "description_en": "Yes! It's a Mexican Pizza, but it's TacoNGanas style. Bigger and better! Comes with our famous 8oz consomé for free! Come reward your taste buds!",
+          "name_es": "PIZZA DE CAMARONES",
+          "description_es": "¡Sí! Es una Pizza Mexicana, pero estilo TacoNGanas. ¡Más grande y mejor! ¡Viene con nuestro famoso consomé de 8oz gratis! ¡Ven a premiar tu paladar!"
+        },
+        {
+          "price": 9.99,
+          "name_en": "BIRRIA RAMEN",
+          "description_en": "Delicious Ramen added to our famous consomé is a traditional Mexican beef broth that we prepare daily with the drippings of our barbacoa meat and top with fresh cilantro and onion. The consomé at TacoNGanas has been dubbed the \"taco dipping sauce\" by many customers.",
+          "name_es": "RAMEN DE BIRRIA",
+          "description_es": "Delicioso Ramen agregado a nuestro famoso consomé, un caldo de res tradicional mexicano que preparamos a diario con los jugos de nuestra carne de barbacoa y cubrimos con cilantro y cebolla frescos. El consomé de TacoNGanas ha sido apodado la \"salsa para mojar tacos\" por muchos clientes."
+        }
+      ]
+    },
+    {
+      "type": "extras",
+      "title_en": "EXTRAS",
+      "title_es": "EXTRAS",
+      "items": [
+        {
+          "price": 5.00,
+          "name_en": "CONSOME",
+          "description_en": "Consomé is a traditional Mexican beef broth that we prepare daily with the drippings of our barbacoa meat and top with fresh cilantro and onion. It can be eaten alone or it can accompany any on the items on the menu. The consomé at TacoNGanas has been dubbed the “taco dipping sauce” by many customers.",
+          "name_es": "CONSOMÉ",
+          "description_es": "El consomé es un caldo de res tradicional mexicano que preparamos a diario con los jugos de nuestra carne de barbacoa y cubrimos con cilantro y cebolla frescos. Se puede comer solo o acompañar cualquier platillo del menú. El consomé de TacoNGanas ha sido apodado la \"salsa para mojar tacos\" por muchos clientes."
+        },
+        {
+          "price": 2.99,
+          "name_en": "JARRITOS",
+          "description_en": "Traditional Mexican sodas in assorted flavors.",
+          "name_es": "JARRITOS",
+          "description_es": "Refrescos tradicionales mexicanos en sabores surtidos."
+        },
+        {
+          "price": 1.99,
+          "name_en": "BOTTLED WATERS",
+          "description_en": "Bottled waters.",
+          "name_es": "AGUAS EMBOTELLADAS",
+          "description_es": "Aguas embotelladas."
+        }
+      ]
+    }
+  ]
+}

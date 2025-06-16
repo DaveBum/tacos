@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="editor-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="TACOnganas Ultimate Visual Editor - Craft stunning web pages with unparalleled control and ease.">
+    <meta name="theme-color" content="#EC008C"> <!-- TACOnganas Pink -->
+    <title>TACOnganas :: Pro Visual Editor</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../tacosnganas/images/ui/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="../tacosnganas/images/ui/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="180x180" href="../tacosnganas/images/ui/apple-touch-icon.png">
+    <link rel="mask-icon" href="../tacosnganas/images/ui/safari-pinned-tab.svg" color="#EC008C">
+    <link rel="manifest" href="../tacosnganas/manifest.webmanifest">
+
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" integrity="sha512-hvNR0F/e2J7zPPfLC9auFe3/SE0yG4aJCOd/qxew74NN7eyiSKjr7xJJMu1Jy2wf7FXITpWS1E/RY8yzuXN7VA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- Custom Admin Panel Styles -->
+    <link rel="stylesheet" href="css/admin-styles.css">
+    <link rel="stylesheet" href="css/editor-theme.css"> <!-- Specific theme for the editor UI itself -->
+
+    <style>
+        :root {
+            --editor-primary-color: #EC008C; /* TACOnganas Pink */
+            --editor-secondary-color: #F7941D; /* TACOnganas Orange */
+            --editor-accent-color: #00AEEF; /* TACOnganas Blue */
+            --editor-bg-color: #f8f9fa;
+            --editor-panel-bg: #ffffff;
+            --editor-text-color: #333;
+            --editor-border-color: #dee2e6;
+            --editor-sidebar-width: 280px;
+            --editor-toolbar-height: 60px;
+        }
+        body.editor-html {
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars on body due to fixed layout */
+            background-color: var(--editor-bg-color);
+            color: var(--editor-text-color);
+            font-family: 'Inter', sans-serif;
+        }
+        .editor-main-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .editor-toolbar {
+            height: var(--editor-toolbar-height);
+            background-color: var(--editor-panel-bg);
+            border-bottom: 1px solid var(--editor-border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 10px;
+            flex-shrink: 0;
+            z-index: 1001; /* Above GrapesJS UI */
+        }
+        .toolbar-brand-logo { max-height: 40px; }
+        .toolbar-separator { width: 1px; height: 30px; background-color: var(--editor-border-color); margin: 0 5px; }
+        .page-status-indicator { font-size: 0.75rem; padding: .2em .5em; }
+        .editor-body {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden; /* Important for layout */
+        }
+        .editor-sidebar {
+            width: var(--editor-sidebar-width);
+            background-color: var(--editor-panel-bg);
+            border-right: 1px solid var(--editor-border-color);
+            overflow-y: auto;
+            transition: width 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+            flex-shrink: 0;
+            z-index: 1000;
+        }
+        .editor-sidebar.collapsed { width: 0; padding: 0; opacity: 0; border-right: none; }
+        .gjs-panel-header {
+            padding: 10px 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 1px solid var(--editor-border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .gjs-panel-header:hover { background-color: #f0f0f0; }
+        .gjs-panel-content { padding: 15px; border-bottom: 1px solid var(--editor-border-color); }
+        .gjs-canvas-wrapper { flex-grow: 1; position: relative; background-color: #e9ecef; }
+        #gjs { border: none; } /* GrapesJS canvas */
+
+        /* GrapesJS Overrides & Customizations */
+        .gjs-pn-panel { box-shadow: none !important; }
+        .gjs-cv-canvas { background-color: white !important; }
+        .gjs-block { min-height: auto !important; padding: 10px !important; }
+        .gjs-block-label { font-size: 0.85rem !important; }
+        .gjs-layer { font-size: 0.9rem !important; }
+        .gjs-trt-trait { padding: 8px 0 !important; }
+
+        /* Modals */
+        .modal-xl { max-width: 90%; }
+        .modal-fullscreen-lg-down .modal-content { min-height: calc(100vh - 1rem); }
+        .asset-manager-body { display: flex; }
+        .asset-manager-sidebar { width: 250px; border-right: 1px solid var(--editor-border-color); padding: 1rem; overflow-y: auto; flex-shrink: 0; }
+        .asset-manager-main { flex-grow: 1; padding: 1rem; overflow-y: auto; }
+        #assetsGalleryContainer { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+        .asset-card { border: 1px solid var(--editor-border-color); border-radius: 0.25rem; padding: 0.5rem; text-align: center; cursor: pointer; }
+        .asset-card:hover { border-color: var(--editor-primary-color); box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        .asset-card img, .asset-card .file-icon-lg { width: 100%; height: 100px; object-fit: cover; margin-bottom: 0.5rem; }
+        .asset-card .file-icon-lg { font-size: 4rem; display: flex; align-items: center; justify-content: center; background-color: #f0f0f0; }
+        .asset-card p { font-size: 0.8rem; word-break: break-all; margin-bottom: 0.25rem; }
+        .template-preview-img { width: 100px; height: 70px; object-fit: cover; border: 1px solid #ddd; }
+        .text-ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: rgba(255,255,255,0.85); z-index: 9999; }
+        .editor-notifications-container { position: fixed; bottom: 20px; right: 20px; z-index: 10000; max-width: 350px; }
+    </style>
+</head>
+<body class="editor-html">
+    <div class="editor-main-container">
+        <!-- Editor Toolbar -->
+        <div class="editor-toolbar">
+            <a href="#" id="backToDashboardLink" title="Back to TACOnganas Admin Dashboard">
+                <img src="../tacosnganas/images/ui/web_logo_TACONGANAS.png" alt="TACOnganas Logo" class="toolbar-brand-logo">
+            </a>
+            <div class="toolbar-separator"></div>
+            <button class="btn btn-sm btn-primary" id="sidebarToggleBtn" title="Hide Sidebar" aria-expanded="true" aria-controls="editorSidebar"><i class="fas fa-chevron-left"></i></button>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-light border dropdown-toggle d-flex align-items-center" type="button" id="pageSelectorDropdown" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                    <i class="fas fa-file-alt me-2"></i> <span id="selectedPageName" class="text-ellipsis" style="max-width: 180px;">Loading Pages...</span>
+                </button>
+                <ul class="dropdown-menu" id="pageSelectorList" aria-labelledby="pageSelectorDropdown" style="max-height: 350px; overflow-y: auto;">
+                    <li><input type="search" class="form-control form-control-sm m-2 w-auto" placeholder="Search pages..." id="pageSearchInputInDropdown"></li>
+                    <li><h6 class="dropdown-header">Site Pages</h6></li>
+                    <!-- JS populates pages -->
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" id="createNewPageFromDropdown"><i class="fas fa-plus me-2"></i>Create New Page...</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary" id="pageSettingsBtn" title="Page Settings" data-bs-toggle="modal" data-bs-target="#pageSettingsModal" disabled><i class="fas fa-cog"></i></button>
+            <button class="btn btn-sm btn-success" id="savePageBtn" title="Save Page (Ctrl+S)" disabled><i class="fas fa-save"></i> <span class="d-none d-md-inline">Save</span></button>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="saveOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="More save options" disabled>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="saveOptionsDropdown">
+                    <li><a class="dropdown-item" href="#" id="saveAsTemplateBtn"><i class="fas fa-clone me-2"></i>Save as Reusable Section</a></li>
+                    <li><a class="dropdown-item" href="#" id="saveAsPageTemplateBtn"><i class="fas fa-file-code me-2"></i>Save as Page Template</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary btn-icon-text" id="previewPageBtn" title="Preview Page in New Tab" disabled>
+                <i class="fas fa-external-link-alt"></i> <span class="d-none d-md-inline">Preview</span>
+            </button>
+            
+            <div class="ms-2 me-2 d-flex align-items-center">
+                <span id="unsavedChangesIndicator" class="badge bg-warning-subtle text-warning-emphasis page-status-indicator" style="display:none;" aria-live="polite">Unsaved</span>
+                <span id="currentPageStatus" class="badge bg-info-subtle text-info-emphasis page-status-indicator" style="display:none;" aria-live="polite">Status: Draft</span>
+                <small id="lastSavedTimestamp" class="text-muted align-self-center ms-2" style="font-size: 0.8rem;"></small>
+            </div>
+
+            <!-- Right Aligned Toolbar Items -->
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <div id="gjs-devices-buttons" class="btn-group btn-group-sm" role="group" aria-label="Responsive view controls"></div>
+                <div id="gjs-panel-commands-buttons" class="btn-group btn-group-sm" role="group" aria-label="Editor commands"></div>
+
+                <button class="btn btn-sm btn-outline-secondary" id="openAssetManagerToolbarBtn" title="Open Asset Manager" data-bs-toggle="modal" data-bs-target="#assetManagerModal">
+                    <i class="fas fa-photo-video"></i> <span class="d-none d-xl-inline">Media</span>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" id="openGlobalSectionsToolbarBtn" title="Edit Global Sections (Header/Footer)" data-bs-toggle="modal" data-bs-target="#globalSectionsModal">
+                    <i class="fas fa-globe-americas"></i> <span class="d-none d-xl-inline">Globals</span>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" id="openTemplatesToolbarBtn" title="Reusable Content Library" data-bs-toggle="modal" data-bs-target="#templatesModal">
+                    <i class="fas fa-layer-group"></i> <span class="d-none d-xl-inline">Library</span>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" id="openRevisionsToolbarBtn" title="Page Revisions" data-bs-toggle="modal" data-bs-target="#revisionsModal" disabled>
+                    <i class="fas fa-history"></i> <span class="d-none d-xl-inline">Revisions</span>
+                </button>
+                 <button class="btn btn-sm btn-outline-secondary" id="openSeoToolbarBtn" title="SEO Settings" data-bs-toggle="modal" data-bs-target="#seoSettingsModal" disabled>
+                    <i class="fas fa-chart-line"></i> <span class="d-none d-xl-inline">SEO</span>
+                </button>
+                <button class="btn btn-sm btn-info" id="publishPageBtn" title="Publish Changes" disabled>
+                    <i class="fas fa-rocket"></i> <span class="d-none d-lg-inline">Publish</span>
+                </button>
+                <div class="toolbar-separator"></div>
+                <button class="btn btn-sm btn-outline-secondary" id="openHelpToolbarBtn" title="Help" data-bs-toggle="modal" data-bs-target="#helpModal"><i class="fas fa-question-circle"></i></button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle me-2"></i> <span id="loggedInUserName">Admin</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="#" id="userProfileBtn"><i class="fas fa-user-edit me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#" id="appSettingsBtn"><i class="fas fa-cogs me-2"></i>App Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Body (Sidebar + Canvas) -->
+        <div class="editor-body">
+            <!-- Sidebar for GrapesJS Panels -->
+            <aside class="editor-sidebar" id="editorSidebar">
+                <div class="gjs-panel-section" id="gjs-panel-add">
+                    <div class="gjs-panel-header" data-bs-toggle="collapse" data-bs-target="#gjsAddContent" aria-expanded="true">
+                        <span><i class="fas fa-plus-square fa-fw me-2"></i>Add Elements</span> <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="gjsAddContent" class="gjs-panel-content collapse show">
+                        <input type="search" class="form-control form-control-sm mb-3" id="gjsBlocksSearchInput" placeholder="Search elements & blocks...">
+                        <div id="gjs-blocks-container"></div> <!-- GrapesJS Block Manager -->
+                    </div>
+                </div>
+                <div class="gjs-panel-section" id="gjs-panel-layers">
+                    <div class="gjs-panel-header collapsed" data-bs-toggle="collapse" data-bs-target="#gjsLayersContent" aria-expanded="false">
+                        <span><i class="fas fa-layer-group fa-fw me-2"></i>Layers</span> <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="gjsLayersContent" class="gjs-panel-content collapse">
+                        <div id="gjs-layers-container"></div> <!-- GrapesJS Layer Manager -->
+                    </div>
+                </div>
+                <div class="gjs-panel-section" id="gjs-panel-styles">
+                    <div class="gjs-panel-header collapsed" data-bs-toggle="collapse" data-bs-target="#gjsStylesContent" aria-expanded="false">
+                        <span><i class="fas fa-paint-brush fa-fw me-2"></i>Styles</span> <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="gjsStylesContent" class="gjs-panel-content collapse">
+                        <div id="gjs-styles-container"></div> <!-- GrapesJS Style Manager -->
+                    </div>
+                </div>
+                <div class="gjs-panel-section" id="gjs-panel-traits">
+                    <div class="gjs-panel-header collapsed" data-bs-toggle="collapse" data-bs-target="#gjsTraitsContent" aria-expanded="false">
+                        <span><i class="fas fa-cog fa-fw me-2"></i>Settings</span> <i class="fas fa-chevron-down"></i> <!-- Traits are component settings -->
+                    </div>
+                    <div id="gjsTraitsContent" class="gjs-panel-content collapse">
+                        <div id="gjs-traits-container"></div> <!-- GrapesJS Trait Manager -->
+                    </div>
+                </div>
+                 <div class="gjs-panel-section" id="gjs-panel-reusable">
+                    <div class="gjs-panel-header collapsed" data-bs-toggle="collapse" data-bs-target="#gjsReusableContent" aria-expanded="false">
+                        <span><i class="fas fa-puzzle-piece fa-fw me-2"></i>Reusable</span> <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="gjsReusableContent" class="gjs-panel-content collapse">
+                        <p class="small text-muted">Drag & drop saved sections from the <a href="#" data-bs-toggle="modal" data-bs-target="#templatesModal">Content Library</a>.</p>
+                        <div id="gjs-reusable-blocks-container">
+                             <!-- JS will populate with items from the Library (Reusable Sections) -->
+                            <div class="alert alert-info small">Access Reusable Sections from the Library (Toolbar <i class="fas fa-layer-group"></i> icon).</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- GrapesJS Canvas Wrapper -->
+            <section class="gjs-canvas-wrapper" aria-label="Page Editing Canvas">
+                <div id="gjs">
+                    <!-- Initial placeholder content if no page is loaded -->
+                    <div id="gjsInitialPlaceholder" class="d-flex flex-column justify-content-center align-items-center h-100 text-muted p-5 text-center bg-light">
+                        <img src="../tacosnganas/images/ui/web_logo_TACONGANAS_color.png" alt="TACOnganas" style="max-width: 200px; margin-bottom: 2rem; opacity: 0.8;">
+                        <h1 class="display-5 fw-light mb-3">Visual Page Editor</h1>
+                        <p class="lead fs-5 mb-4">Select a page to begin, or unleash your creativity and <button class="btn btn-link p-0 fs-5" id="initialCreatePageLink">create a new masterpiece</button>.</p>
+                        <div class="spinner-border text-primary" role="status" id="initialLoadingSpinner" style="display:none;">
+                            <span class="visually-hidden">Loading editor...</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- GrapesJS context menus, resizers, etc., will appear relative to the canvas -->
+            </section>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="editorNotificationsContainer" class="editor-notifications-container" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- Global Loading Overlay -->
+    <div id="loadingOverlay" style="display: none; opacity:0;">
+        <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status"><span class="visually-hidden">Loading...</span></div>
+        <p id="loadingMessage" class="mt-3 fs-5 fw-medium">Loading Editor...</p>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Page Settings Modal -->
+    <div class="modal fade" id="pageSettingsModal" tabindex="-1" aria-labelledby="pageSettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pageSettingsModalLabel"><i class="fas fa-sliders-h me-2"></i>Page Configuration: <span id="settingsModalPageName" class="fw-bold"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="pageSettingsForm">
+                        <input type="hidden" id="pageSettingsFilename">
+                        <ul class="nav nav-tabs mb-3" id="pageSettingsTabs" role="tablist">
+                            <li class="nav-item" role="presentation"><button class="nav-link active" id="psGeneralTab" data-bs-toggle="tab" data-bs-target="#psGeneralContent" type="button" role="tab">General</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="psSeoTab" data-bs-toggle="tab" data-bs-target="#psSeoContent" type="button" role="tab">SEO</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" id="psAdvancedTab" data-bs-toggle="tab" data-bs-target="#psAdvancedContent" type="button" role="tab">Advanced</button></li>
+                        </ul>
+                        <div class="tab-content" id="pageSettingsTabsContent">
+                            <div class="tab-pane fade show active" id="psGeneralContent" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pageTitleInput" class="form-label">Page Title (for browser tab & internal)</label>
+                                        <input type="text" class="form-control" id="pageTitleInput" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pageFilenameInput" class="form-label">Filename (e.g., about-us.html)</label>
+                                        <input type="text" class="form-control" id="pageFilenameInput" required pattern="[a-z0-9-_]+\.html$" title="Lowercase letters, numbers, hyphens, underscores, ending with .html">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pageTemplateSelect" class="form-label">Page Template</label>
+                                    <select class="form-select" id="pageTemplateSelect">
+                                        <option value="default">Default Template</option>
+                                        <!-- JS populates with available page templates -->
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pageStatusSelect" class="form-label">Status</label>
+                                    <select class="form-select" id="pageStatusSelect">
+                                        <option value="draft">Draft</option>
+                                        <option value="published">Published</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="psSeoContent" role="tabpanel">
+                                <p class="small text-muted">For full SEO controls, use the dedicated <i class="fas fa-chart-line"></i> SEO panel in the main toolbar or the SEO Settings Modal.</p>
+                                <div class="mb-3">
+                                    <label for="quickSeoTitle" class="form-label">SEO Title</label>
+                                    <input type="text" class="form-control" id="quickSeoTitle" maxlength="70">
+                                    <small class="form-text text-muted">Displayed in browser tabs and search results. <span id="quickSeoTitleCharCount">0/70</span></small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="quickSeoMetaDescription" class="form-label">Meta Description</label>
+                                    <textarea class="form-control" id="quickSeoMetaDescription" rows="3" maxlength="160"></textarea>
+                                    <small class="form-text text-muted">Brief summary for search engines. <span id="quickSeoDescCharCount">0/160</span></small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="quickFeaturedImage" class="form-label">Featured Image (for social sharing, OpenGraph)</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="quickFeaturedImageUrl" placeholder="Image URL (e.g., /images/my-page-social.jpg)">
+                                        <button class="btn btn-outline-secondary" type="button" id="browseQuickFeaturedImageBtn" data-bs-toggle="modal" data-bs-target="#assetManagerModal" data-input-target="#quickFeaturedImageUrl" data-preview-target="#quickFeaturedImagePreview">Browse Media</button>
+                                    </div>
+                                    <img id="quickFeaturedImagePreview" src="#" alt="Preview" class="mt-2 img-thumbnail" style="max-height: 100px; display:none;">
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="psAdvancedContent" role="tabpanel">
+                                <h6>Custom Code Injection</h6>
+                                <div class="mb-3">
+                                    <label for="pageCustomHeadScripts" class="form-label">In &lt;head&gt; (e.g., custom meta tags, specific CSS links, analytics snippets)</label>
+                                    <textarea class="form-control" id="pageCustomHeadScripts" rows="4" placeholder="<meta ...> or <style>...</style> or <link ...> or <script>..."></script>"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pageCustomBodyStartScripts" class="form-label">After &lt;body&gt; start (e.g., GTM noscript)</label>
+                                    <textarea class="form-control" id="pageCustomBodyStartScripts" rows="3" placeholder="<!-- Google Tag Manager (noscript) -->..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pageCustomBodyEndScripts" class="form-label">Before &lt;/body&gt; end (e.g., custom JS scripts)</label>
+                                    <textarea class="form-control" id="pageCustomBodyEndScripts" rows="4" placeholder="<script>...</script>"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Cancel</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="savePageSettingsBtn"><i class="fas fa-save me-1"></i>Save Page Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asset Manager Modal (Fullscreen for GrapesJS integration) -->
+    <div class="modal fade" id="assetManagerModal" tabindex="-1" aria-labelledby="assetManagerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assetManagerModalLabel"><i class="fas fa-photo-video me-2"></i>Asset Manager</h5>
+                    <div class="ms-auto d-flex align-items-center gap-2">
+                        <input type="search" class="form-control form-control-sm" id="assetSearchInputAM" placeholder="Search assets..." style="width: 200px;">
+                        <select class="form-select form-select-sm" id="assetFilterTypeAM" style="width: 150px;">
+                            <option value="all">All types</option>
+                            <option value="image">Images</option>
+                            <option value="video">Videos</option>
+                            <option value="audio">Audio</option>
+                            <option value="document">Documents</option>
+                        </select>
+                        <button type="button" class="btn btn-sm btn-primary" id="uploadNewAssetBtnInModal"><i class="fas fa-upload me-1"></i> Upload New</button>
+                    </div>
+                    <button type="button" class="btn-close ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body asset-manager-body p-0">
+                    <aside class="asset-manager-sidebar">
+                        <h6>Sources</h6>
+                        <div class="list-group list-group-flush mb-3">
+                            <a href="#" class="list-group-item list-group-item-action active" data-asset-source="my-media"><i class="fas fa-folder fa-fw me-2"></i>My Media Library</a>
+                            <a href="#" class="list-group-item list-group-item-action" data-asset-source="stock-images"><i class="fas fa-images fa-fw me-2"></i>Stock Images (Placeholder)</a>
+                            <a href="#" class="list-group-item list-group-item-action" data-asset-source="icons"><i class="fas fa-icons fa-fw me-2"></i>Icon Library (Placeholder)</a>
+                        </div>
+                        <h6>Folders <button class="btn btn-xs btn-outline-secondary float-end" id="createNewFolderBtnAM" title="New Folder"><i class="fas fa-folder-plus"></i></button></h6>
+                        <div id="assetFoldersTree" class="list-group list-group-flush mb-3" style="max-height: 200px; overflow-y:auto;">
+                            <a href="#" class="list-group-item list-group-item-action" data-folder-path="/">All Files</a>
+                            <!-- JS populates folder tree -->
+                        </div>
+                        <h6>Tags <button class="btn btn-xs btn-outline-secondary float-end" id="manageTagsBtnAM" title="Manage Tags"><i class="fas fa-tags"></i></button></h6>
+                        <div id="assetTagsList" class="list-group list-group-flush" style="max-height: 150px; overflow-y:auto;">
+                            <!-- JS populates tags -->
+                        </div>
+                    </aside>
+                    <main class="asset-manager-main">
+                        <div id="assetsGalleryContainer">
+                            <!-- JS populates assets -->
+                        </div>
+                        <div id="assetPaginationContainer" class="mt-3 d-flex justify-content-center"></div>
+                        <div id="noAssetsMessageAM" class="text-center p-5" style="display:none;">No assets found.</div>
+                    </main>
+                    <div id="assetDetailPanel" class="border-start" style="width:300px; padding:1rem; display:none; overflow-y:auto;">
+                        <h6>Asset Details</h6>
+                        <img id="assetDetailPreview" src="#" alt="Preview" class="img-fluid mb-2">
+                        <p><strong id="assetDetailFilename"></strong></p>
+                        <p class="small text-muted">Type: <span id="assetDetailType"></span></p>
+                        <p class="small text-muted">Size: <span id="assetDetailSize"></span></p>
+                        <p class="small text-muted">Uploaded: <span id="assetDetailDate"></span></p>
+                        <div class="mb-2">
+                            <label for="assetDetailUrlInput" class="form-label small">URL:</label>
+                            <input type="text" readonly class="form-control form-control-sm" id="assetDetailUrlInput">
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100 mb-2" id="editAssetDetailsBtn"><i class="fas fa-edit me-1"></i>Edit Details (Alt, Tags)</button>
+                        <button class="btn btn-sm btn-outline-warning w-100 mb-2" id="cropAssetBtn" style="display:none;"><i class="fas fa-crop-alt me-1"></i>Crop/Resize</button>
+                        <button class="btn btn-sm btn-outline-danger w-100" id="deleteAssetDetailBtn"><i class="fas fa-trash-alt me-1"></i>Delete Asset</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span id="selectedAssetsCount" class="me-auto text-muted small">0 assets selected</span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="insertSelectedAssetsBtn" disabled><i class="fas fa-check me-1"></i>Insert Selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO Settings Modal -->
+    <div class="modal fade" id="seoSettingsModal" tabindex="-1" aria-labelledby="seoSettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="seoSettingsModalLabel"><i class="fas fa-chart-line me-2"></i>SEO Settings for <span id="seoModalPageName" class="fw-bold"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="seoSettingsForm">
+                        <div class="mb-3">
+                            <label for="seoPageTitle" class="form-label">Page Title (Meta Title)</label>
+                            <input type="text" class="form-control" id="seoPageTitle" maxlength="70">
+                            <small class="form-text text-muted">Max 70 characters. Appears in search results and browser tabs. <span id="seoPageTitleCharCount">0/70</span></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seoMetaDescription" class="form-label">Meta Description</label>
+                            <textarea class="form-control" id="seoMetaDescription" rows="3" maxlength="160"></textarea>
+                            <small class="form-text text-muted">Max 160 characters. A brief summary for search engines. <span id="seoMetaDescCharCount">0/160</span></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seoKeywords" class="form-label">Meta Keywords (Comma-separated)</label>
+                            <input type="text" class="form-control" id="seoKeywords" placeholder="e.g., tacos, mexican food, best tacos in town">
+                            <small class="form-text text-muted">Less important for modern SEO, but can be included.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seoSocialImage" class="form-label">Social Sharing Image (OpenGraph Image)</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="seoSocialImageUrl" placeholder="URL of image (e.g., /images/social/my-page.jpg)">
+                                <button class="btn btn-outline-secondary" type="button" id="browseSeoSocialImageBtn" data-bs-toggle="modal" data-bs-target="#assetManagerModal" data-input-target="#seoSocialImageUrl" data-preview-target="#seoSocialImagePreview">Browse</button>
+                            </div>
+                            <img id="seoSocialImagePreview" src="#" alt="Social Image Preview" class="mt-2 img-thumbnail" style="max-height: 150px; display:none;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="seoRobotsTag" class="form-label">Robots Meta Tag</label>
+                            <select class="form-select" id="seoRobotsTag">
+                                <option value="index, follow">Index, Follow (Default)</option>
+                                <option value="noindex, follow">No Index, Follow</option>
+                                <option value="index, nofollow">Index, No Follow</option>
+                                <option value="noindex, nofollow">No Index, No Follow</option>
+                            </select>
+                        </div>
+                         <div class="mb-3">
+                            <label for="seoCanonicalUrl" class="form-label">Canonical URL (Optional)</label>
+                            <input type="url" class="form-control" id="seoCanonicalUrl" placeholder="https://www.example.com/preferred-page-url">
+                            <small class="form-text text-muted">If this page's content is similar to or duplicates another, specify the main version.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seoSchemaMarkup" class="form-label">Structured Data (Schema.org JSON-LD)</label>
+                            <textarea class="form-control" id="seoSchemaMarkup" rows="5" placeholder='<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "WebPage",\n  "name": "Page Name"\n}\n</script>'></textarea>
+                            <small class="form-text text-muted">Advanced: Add JSON-LD structured data for rich snippets.</small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Close</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="saveSeoSettingsBtn"><i class="fas fa-save me-1"></i>Save SEO Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates/Reusable Sections Modal (Library) -->
+    <div class="modal fade" id="templatesModal" tabindex="-1" aria-labelledby="templatesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templatesModalLabel"><i class="fas fa-layer-group me-2"></i>Content Library</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-pills mb-3" id="libraryTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="reusableSectionsTab" data-bs-toggle="tab" data-bs-target="#reusableSectionsContent" type="button" role="tab"><i class="fas fa-puzzle-piece me-1"></i>Reusable Sections</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pageTemplatesTab" data-bs-toggle="tab" data-bs-target="#pageTemplatesContent" type="button" role="tab"><i class="fas fa-file-alt me-1"></i>Page Templates</button>
+                        </li>
+                        <li class="nav-item ms-auto" role="presentation">
+                             <button class="btn btn-sm btn-success" id="createNewReusableSectionBtn"><i class="fas fa-plus me-1"></i>Create New Section</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="libraryTabsContent">
+                        <div class="tab-pane fade show active" id="reusableSectionsContent" role="tabpanel">
+                            <div class="row mb-3">
+                                <div class="col-md-4"><input type="search" class="form-control form-control-sm" id="searchReusableSectionsInput" placeholder="Search sections..."></div>
+                                <div class="col-md-3"><select class="form-select form-select-sm" id="filterReusableSectionsCategory"><option value="">All Categories</option></select></div>
+                                <div class="col-md-3"><select class="form-select form-select-sm" id="sortReusableSections"><option value="name_asc">Sort by Name (A-Z)</option><option value="name_desc">Sort by Name (Z-A)</option><option value="date_new">Newest First</option></select></div>
+                            </div>
+                            <div id="reusableSectionsList" class="list-group">
+                                <!-- JS populates. Example item:
+                                <div class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div>
+                                            <img src="assets/images/section-preview-placeholder.png" class="template-preview-img float-start me-3" alt="Section Preview">
+                                            <h6 class="mb-1 text-ellipsis">Hero Banner with CTA</h6>
+                                            <small class="text-muted d-block">Category: Heros, Tags: responsive, dark</small>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-sm btn-outline-primary insert-reusable-section-btn" data-section-id="sec_hero_cta" title="Insert Section"><i class="fas fa-plus"></i></button>
+                                            <button class="btn btn-sm btn-outline-info preview-reusable-section-btn" data-section-id="sec_hero_cta" title="Preview Section"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger delete-reusable-section-btn" data-section-id="sec_hero_cta" title="Delete Section"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <p id="noReusableSectionsMessage" class="text-center text-muted p-3" style="display:none;">No reusable sections found. Create one from the editor!</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pageTemplatesContent" role="tabpanel">
+                            <p class="text-center text-muted p-3">Page templates will be listed here. (Feature coming soon)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Sections Modal -->
+    <div class="modal fade" id="globalSectionsModal" tabindex="-1" aria-labelledby="globalSectionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="globalSectionsModalLabel"><i class="fas fa-globe-americas me-2"></i>Edit Global Site Sections</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">Select a global section to load its content into a dedicated editor tab or manage its settings. Changes will apply site-wide after saving and publishing.</p>
+                    <div class="list-group" id="globalSectionsList">
+                        <button type="button" class="list-group-item list-group-item-action edit-global-section-btn" data-global-section-id="header"><i class="fas fa-window-maximize fa-fw me-2 text-primary"></i> Edit Site Header</button>
+                        <button type="button" class="list-group-item list-group-item-action edit-global-section-btn" data-global-section-id="footer"><i class="fas fa-shoe-prints fa-fw me-2 text-primary"></i> Edit Site Footer</button>
+                        <!-- Add more dynamically if other global sections are defined -->
+                    </div>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revisions Modal -->
+    <div class="modal fade" id="revisionsModal" tabindex="-1" aria-labelledby="revisionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="revisionsModalLabel"><i class="fas fa-history me-2"></i>Revision History for <span id="revisionModalPageName" class="fw-bold"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 border-end">
+                            <h6 class="small text-muted">Revision History</h6>
+                            <input type="search" class="form-control form-control-sm mb-2" id="searchRevisionsInput" placeholder="Filter revisions (e.g., by date or user)">
+                            <div id="revisionsListContainer" style="max-height: 65vh; overflow-y: auto;">
+                                <ul class="list-group list-group-flush" id="revisionsList">
+                                    <!-- JS populates. Example:
+                                    <li class="list-group-item list-group-item-action revision-item cursor-pointer" data-revision-id="rev_xyz123">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <strong class="mb-1 text-primary">June 16, 2025, 10:30 AM</strong>
+                                            <small class="badge bg-secondary-subtle text-secondary-emphasis">Auto-save</small>
+                                        </div>
+                                        <small class="text-muted d-block">By: Admin User</small>
+                                        <small class="text-muted d-block">Note: Updated hero section.</small>
+                                    </li> -->
+                                    <p id="noRevisionsMessage" class="text-center text-muted p-3" style="display:none;">No revisions found for this page.</p>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="small text-muted">Preview of Selected Revision (<span id="selectedRevisionTimestamp"></span>)</h6>
+                            <div id="revisionPreviewContainer" class="border bg-light" style="height: 60vh; overflow: auto; position: relative;">
+                                <iframe id="revisionPreviewFrame" style="width:100%; height:100%; border:0;" title="Revision Preview"></iframe>
+                            </div>
+                            <div class="mt-2 text-end">
+                                <button class="btn btn-sm btn-primary" id="restoreRevisionBtn" disabled><i class="fas fa-undo-alt me-1"></i> Restore to this Revision</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Publish Modal -->
+    <div class="modal fade" id="publishModal" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="publishModalLabel"><i class="fas fa-rocket me-2"></i>Confirm Publish</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to publish changes for page: <strong id="publishModalPageName" class="text-primary"></strong>.</p>
+                    <p class="text-muted small">This will commit the current saved version of the page to the repository and may trigger a live deployment.</p>
+                    <div class="mb-3">
+                        <label for="publishCommitMessage" class="form-label small">Publish Notes / Commit Message (Required):</label>
+                        <textarea class="form-control form-control-sm" id="publishCommitMessage" rows="2" placeholder="e.g., Updated hero section, fixed typos" required></textarea>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="publishAllRelatedAssets">
+                        <label class="form-check-label small" for="publishAllRelatedAssets">
+                            Include all new/modified media assets used on this page in the publish.
+                        </label>
+                    </div>
+                    <div id="prePublishWarnings" class="alert alert-warning small" style="display:none;"></div>
+                    <div id="publishProgressIndicator" style="display:none;">
+                        <div class="progress mb-2"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div></div>
+                        <p id="publishStatusText" class="text-center small text-muted"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal" id="cancelPublishBtn"><i class="fas fa-times me-1"></i>Cancel</button>
+                    <button type="button" class="btn btn-sm btn-success" id="confirmPublishBtn"><i class="fas fa-check-circle me-1"></i>Proceed to Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Cropper Modal (Used by Media Manager) -->
+    <div class="modal fade" id="cropperModal" tabindex="-1" aria-labelledby="cropperModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cropperModalLabel">Crop Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="img-container" style="max-height: 60vh;">
+                        <img id="cropperImageElement" src="#" alt="Image to crop" style="max-width: 100%;">
+                    </div>
+                    <div class="mt-3">
+                        <h6>Options:</h6>
+                        <div class="input-group input-group-sm mb-2">
+                            <span class="input-group-text">Aspect Ratio</span>
+                            <select id="aspectRatioSelect" class="form-select form-select-sm">
+                                <option value="NaN">Free</option>
+                                <option value="1.7777777777777777">16:9</option>
+                                <option value="1.3333333333333333">4:3</option>
+                                <option value="1">1:1 (Square)</option>
+                                <option value="0.6666666666666666">2:3</option>
+                            </select>
+                        </div>
+                        <!-- Add more cropper controls here if needed (zoom, rotate, etc.) -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal" id="cropCancelBtn">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="cropSaveBtn">Apply Crop & Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel"><i class="fas fa-question-circle me-2"></i>Editor Help & Documentation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Welcome to the TACOnganas Page Editor! Here are some tips to get you started:</p>
+                    <ul>
+                        <li><strong>Adding Elements:</strong> Use the "Add Elements" panel on the left to drag and drop components onto your page.</li>
+                        <li><strong>Styling:</strong> Select an element on the canvas, then use the "Styles" panel to modify its appearance.</li>
+                        <li><strong>Settings/Traits:</strong> The "Settings" panel (often called Traits) allows you to configure properties specific to the selected component.</li>
+                        <li><strong>Layers:</strong> The "Layers" panel shows the structure of your page. You can reorder and manage elements here.</li>
+                        <li><strong>Saving:</strong> Click the "Save" button in the top toolbar frequently.</li>
+                        <li><strong>Preview:</strong> Use the "Preview" button to see your page as visitors will.</li>
+                        <li><strong>Responsive Design:</strong> Use the device icons in the toolbar to switch between desktop, tablet, and mobile views.</li>
+                    </ul>
+                    <p>For more detailed assistance, please refer to the application's user manual or contact support.</p>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Got it!</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core JavaScript Libraries -->
+    <script src="https://unpkg.com/grapesjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Admin Application Main Logic -->
+    <script src="js/bootstrap.js"></script> <!-- MUST BE FIRST of your app scripts -->
+
+    <!-- GrapesJS Configuration (depends on adminApp) -->
+    <script src="js/grapes-config.js"></script>
+
+    <!-- Other admin modules (these depend on adminApp) -->
+    <script src="js/media-manager.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/pages.js"></script>
+    <script src="js/locations.js"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.adminApp && typeof window.adminApp.init === 'function') {
+        window.adminApp.init();
+    } else {
+        console.error("Admin App core (window.adminApp.init) not found or init function is missing.");
+        document.body.innerHTML = '<div class="alert alert-danger m-5"><strong>Fatal Error:</strong> Application core could not be loaded. Please check console.</div>';
+        return;
+    }
+    // ...any other initialization...
+});
+</script>
+</body>
+</html>

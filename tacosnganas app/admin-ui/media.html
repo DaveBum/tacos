@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Management - TACOnganas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        /* Basic styling for the media manager */
+        .media-container {
+            padding: 20px;
+        }
+        .upload-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .gallery-section {
+            margin-bottom: 20px;
+        }
+        .gallery-controls {
+            margin-bottom: 10px;
+        }
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .image-gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+        .image-gallery .img-container {
+            position: relative;
+        }
+        .image-gallery .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .pagination-controls {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .pagination-controls button {
+            margin: 0 5px;
+        }
+        #cropperModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #imageToCrop {
+            max-width: 100%;
+            display: block;
+        }
+        .crop-actions button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="media-container">
+        <button id="backToDashboardButton">Back to Dashboard</button>
+        <h1>Media Management</h1>
+
+        <div class="upload-section">
+            <h2>Upload New Media</h2>
+            <input type="file" id="fileInput" accept="image/*" multiple>
+            <button id="uploadButton">Upload</button>
+            <div id="uploadProgressContainer" style="display: none;">
+                <progress id="uploadProgressBar" value="0" max="100"></progress>
+                <span id="uploadProgressText">0%</span>
+            </div>
+        </div>
+
+        <div class="gallery-section">
+            <h2>Image Gallery</h2>
+            <div class="gallery-controls">
+                <input type="text" id="searchInput" placeholder="Search images...">
+                <select id="filterSelect">
+                    <option value="all">All</option>
+                    <option value="hero">Hero</option>
+                    <option value="locations">Locations</option>
+                    <option value="menu">Menu Items</option>
+                    <option value="ui">UI Elements</option>
+                </select>
+            </div>
+            <div id="imageGallery" class="image-gallery">
+                <!-- Images will be loaded here by media.js -->
+            </div>
+            <div class="pagination-controls">
+                <button id="prevPageButton" disabled>Previous</button>
+                <span id="currentPageIndicator">Page 1</span>
+                <button id="nextPageButton">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cropper Modal -->
+    <div id="cropperModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeCropperModalButton">&times;</span>
+            <h2>Crop Image</h2>
+            <div>
+                <img id="imageToCrop" src="" alt="Image to crop">
+            </div>
+            <div class="crop-actions">
+                <button id="cropAndSaveButton">Crop & Save</button>
+                <button id="cancelCropButton">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="js/media.js"></script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+body {
+  background: #f8f9fa;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+.btn {
+  border-radius: 6px;
+}
+.login-container {
+  max-width: 400px;
+}
+
+/* General Admin Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    /* display: flex; */ /* Removed for admin-active class to take over */
+    /* justify-content: center; */
+    /* align-items: center; */
+    min-height: 100vh;
+}
+
+body:not(.admin-active) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    color: #e67e22; /* TACOnganas Orange */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="number"],
+.form-group input[type="datetime-local"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button,
+button[type="submit"], 
+.admin-section button, 
+.sidebar button, 
+.page-controls button, 
+.editor-controls button {
+    background-color: #e67e22; /* TACOnganas Orange */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover,
+button[type="submit"]:hover, 
+.admin-section button:hover, 
+.sidebar button:hover, 
+.page-controls button:hover, 
+.editor-controls button:hover {
+    background-color: #d35400; /* Darker Orange */
+}
+
+.error-message {
+    color: #e74c3c; /* Red for errors */
+    margin-top: 15px;
+}
+
+/* Admin Layout (index.html) */
+.admin-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevent scrollbars on the layout itself */
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50; /* Dark Blue/Grey */
+    color: #ecf0f1; /* Light Grey/White */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar-logo {
+    max-width: 80%;
+    margin-bottom: 10px;
+}
+
+.sidebar h3 {
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar ul li a, .sidebar ul li button#logoutButton {
+    display: block;
+    color: #ecf0f1;
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.sidebar ul li a:hover, .sidebar ul li button#logoutButton:hover,
+.sidebar ul li a.active {
+    background-color: #e67e22; /* TACOnganas Orange */
+    color: #fff;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 0; /* Remove padding to allow header and content-area to define it */
+    background-color: #ecf0f1; /* Light grey background */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden; /* Prevent scrollbars on main-content */
+}
+
+.main-header {
+    background-color: #fff;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #34495e; /* Darker Blue/Grey */
+}
+
+.user-info {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.content-area {
+    padding: 30px;
+    overflow-y: auto; /* Allow scrolling within the content area */
+    flex-grow: 1; /* Make content-area take remaining space */
+}
+
+.admin-section {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px; /* If multiple sections are shown, for spacing */
+    display: none; /* Hidden by default, shown by JS */
+}
+.admin-section.active-section {
+    display: block;
+}
+
+
+.admin-section h2 {
+    margin-top: 0;
+    color: #e67e22;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.quick-actions button {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+
+/* Page Editor Specific */
+#gjs {
+    border: 1px solid #ddd;
+    min-height: 600px; /* Ensure GrapesJS has enough space */
+}
+.page-controls, .editor-controls {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 10px;
+    align-items: center;
+}
+.page-controls label, .editor-controls label {
+    font-weight: 600;
+}
+.page-controls select, .editor-controls select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Media Manager */
+#mediaUpload {
+    margin-bottom: 10px;
+}
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.media-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.media-item img {
+    max-width: 100%;
+    height: 100px; /* Fixed height */
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.media-item p {
+    font-size: 0.8em; /* Smaller font for filename */
+    word-break: break-all;
+    margin-bottom: 5px;
+    flex-grow: 1;
+}
+.media-item button.delete-media-btn {
+    background-color: #e74c3c;
+    font-size: 0.8em;
+    padding: 5px 8px;
+    width: 100%; /* Make delete button full width of its container */
+}
+.media-item button.delete-media-btn:hover {
+    background-color: #c0392b;
+}
+
+
+/* Menu Manager & Locations Manager & Deals Manager */
+#menuItemsContainer, #locationsContainer, #dealsContainer { /* Generic container for draggable lists */
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    min-height: 100px; /* Minimum height to show the box even when empty */
+}
+.list-item {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+}
+.list-item.dragging {
+    opacity: 0.5;
+    background: #e0e0e0;
+}
+
+.list-item:active {
+    cursor: grabbing;
+    background-color: #f0f0f0;
+}
+.list-item-info {
+    flex-grow: 1;
+}
+.list-item-info strong {
+    display: block;
+    font-size: 1.1em;
+    color: #333;
+}
+.list-item-info span {
+    font-size: 0.9em;
+    color: #777;
+    display: block; /* Ensure spans take new lines if needed */
+}
+.list-item-actions button {
+    margin-left: 8px;
+    padding: 6px 10px;
+    font-size: 0.9em;
+}
+.list-item-actions .edit-btn {
+    background-color: #3498db; /* Blue */
+}
+.list-item-actions .edit-btn:hover {
+    background-color: #2980b9;
+}
+.list-item-actions .delete-btn {
+    background-color: #e74c3c; /* Red */
+}
+.list-item-actions .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+
+/* Deals Manager Specific */
+#dealsContainer .list-item-info span.deal-dates {
+    font-size: 0.8em;
+    color: #555;
+}
+
+
+/* Analytics Dashboard */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjusted minmax */
+    gap: 20px;
+}
+.chart-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    height: 300px; /* Give charts a fixed height */
+}
+.chart-container canvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/* Modals */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    display: flex; /* Changed from none to flex for easier centering with JS toggle */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal:not([style*="display: flex"]) {
+    display: none !important; /* Ensure it's hidden if not explicitly shown as flex */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #e67e22;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal form .form-group { /* Specificity for modal forms */
+    margin-bottom: 15px;
+}
+.modal form button[type="submit"] {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Settings Page */
+#settings label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+#settings input[type="text"]#websitePathInput {
+    width: calc(100% - 200px); /* Adjust width to fit buttons inline */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+#settings button#browseWebsitePath, #settings button#saveWebsitePath {
+    padding: 10px 15px;
+    width: auto; /* Let buttons size to content */
+}
+
+/* Ensure body is not centered when admin layout is active */
+body.admin-active {
+    display: block; /* Override flex centering */
+    align-items: initial;
+    justify-content: initial;
+}
+
+/* GrapesJS Overrides (if necessary) */
+/* Example: .gjs-cv-canvas { background-color: #fff; } */
+.gjs-editor {
+    width: 100%;
+    height: 100%;
+}
+.gjs-pn-panel.gjs-pn-views-container {
+    height: 40px; /* Adjust panel height */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row; /* Or keep column and make it scrollable */
+        overflow-x: auto;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .sidebar ul {
+        display: flex;
+        flex-direction: row; /* Horizontal menu on small screens */
+        align-items: center; /* Align items in the row */
+    }
+    .sidebar ul li a, .sidebar ul li button#logoutButton {
+        padding: 10px;
+        margin-right: 5px;
+        margin-bottom: 0;
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+    .sidebar-header {
+        display: none; /* Hide header on small screens for space */
+    }
+    .main-header {
+        padding: 10px 15px;
+    }
+    .main-header h1 {
+        font-size: 1.5em;
+    }
+    .content-area {
+        padding: 15px;
+    }
+    .analytics-grid {
+        grid-template-columns: 1fr; /* Stack charts on smaller screens */
+    }
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+    #settings input[type="text"]#websitePathInput {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #settings button#browseWebsitePath, #settings button#saveWebsitePath {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .page-controls, .editor-controls {
+        flex-direction: column; /* Stack controls vertically */
+        align-items: stretch; /* Make items take full width */
+    }
+    .page-controls select, .editor-controls select, .page-controls button, .editor-controls button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+        margin: 10px;
+        box-shadow: none;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+        padding: 10px;
+    }
+    button,
+    button[type="submit"] {
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+    .main-header h1 {
+        font-size: 1.3em;
+    }
+    .content-area {
+        padding: 10px;
+    }
+    .admin-section {
+        padding: 15px;
+    }
+    .chart-container {
+        height: 250px; /* Adjust chart height for small screens */
+    }
+}

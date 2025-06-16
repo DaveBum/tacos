@@ -7,28 +7,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ranchers&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/base.css"> <!-- Assuming a base CSS exists -->
+    <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="menu.css">
-    <!-- Potentially include shared header/footer CSS if they exist and are separate -->
 </head>
 <body>
+    <div data-include="/components/header.html"></div>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Language Toggle -->
-    <div class="language-toggle-container">
-        <button id="lang-toggle" aria-label="Toggle language" data-lang="en">
-            <span class="lang-en">EN 🇺🇸</span>
-            <span class="lang-es" style="display:none;">ES 🇲🇽</span>
-        </button>
+    
+    <!-- Deals Section Placeholder -->
+    <div id="deals-section" class="deals-section">
+        <!-- Deals content will be populated by JS -->
     </div>
-
-    <!-- Hero Banner -->
-    <header class="hero-banner">
-        <div class="hero-content">
-            <h1 id="hero-tagline">Hand-Held Happiness, Made Fresh.</h1>
-            <button id="view-tacos-btn" class="cta-button">View Tacos ↓</button>
-        </div>
-    </header>
 
     <main id="main-content" class="menu-container">
         <!-- Filters: Meat Filter Ribbon & Search Bar -->
@@ -101,13 +90,8 @@
         <!-- Toasts will be populated by JS -->
     </div>
     
-    <!-- Shared Footer (example, if it exists) -->
-    <!-- <div id="footer-placeholder"></div> -->
-
-    <script type="module" src="menu.js"></script>
-    <!-- <script>
-        // Simple script to load shared components if they are plain HTML
-        // fetch('../components/footer.html').then(res => res.text()).then(data => document.getElementById('footer-placeholder').innerHTML = data);
-    </script> -->
+    <div data-include="/components/footer.html"></div>
+    <script src="../js/app.js"></script>
+    <script src="/site/js/analytics.js"></script>
 </body>
 </html>

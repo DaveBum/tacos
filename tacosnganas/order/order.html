@@ -10,10 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ranchers&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../order/order.css">
-    <!-- Base and theme CSS should be imported within order.css -->
 </head>
 <body class="order-page-container">
     <div data-include="/components/header.html"></div>
+
+    <div id="deals-section"></div>
 
     <main>
         <section class="hero-ribbon" aria-labelledby="hero-heading">
@@ -73,28 +74,7 @@
 
     <div data-include="/components/footer.html"></div>
 
-    <!-- Mobile Summary Trigger & Dialog -->
-    <button type="button" class="button button-primary mobile-summary-trigger" id="mobile-summary-view-btn" aria-haspopup="dialog" aria-controls="mobile-summary-dialog" style="display: none;">
-        View Total (<span id="mobile-cart-total-preview">$0.00</span>)
-    </button>
-    <dialog id="mobile-summary-dialog" class="mobile-summary-dialog" aria-labelledby="mobile-summary-heading">
-        <div id="financial-summary-mobile-content">
-            <!-- Financial summary content will be injected here by cart.js for mobile -->
-        </div>
-        <button type="button" class="button button-tertiary" id="mobile-summary-close-btn" aria-label="Close summary" style="margin-top: 1rem; width: calc(100% - 3rem); margin-left: 1.5rem; margin-right: 1.5rem; margin-bottom: 1rem;">Close</button>
-    </dialog>
-
-    <!-- Confirmation Dialog for Item Removal (optional, can be simpler alert) -->
-    <dialog id="remove-item-confirmation-dialog" aria-labelledby="remove-item-dialog-title">
-        <h3 id="remove-item-dialog-title">Remove Item?</h3>
-        <p>Are you sure you want to remove <span id="item-to-remove-name">this item</span> from your cart?</p>
-        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
-            <button type="button" class="button button-tertiary" id="cancel-remove-btn">Cancel</button>
-            <button type="button" class="button button-primary" id="confirm-remove-btn">Remove</button>
-        </div>
-    </dialog>
-
     <script type="module" src="../order/cart.js" defer></script>
-    <!-- <script type="module" src="../js/app.js" defer></script> app.js might contain the includeHTML logic -->
+    <script src="/site/js/analytics.js"></script>
 </body>
 </html>
